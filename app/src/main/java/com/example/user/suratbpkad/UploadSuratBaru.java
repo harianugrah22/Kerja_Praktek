@@ -27,6 +27,5 @@ public class UploadSuratBaru extends AppCompatActivity {
                 pilihFile.show(getFragmentManager(),"Pilih File");
             }
         });
-
     }
 }
