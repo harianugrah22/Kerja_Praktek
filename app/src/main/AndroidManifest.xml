@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.user.suratbpkad">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_log_in">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignIn"
+            android:label="@string/title_activity_sign_in" />
+        <activity
+            android:name=".HomePage"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UploadSuratBaru"
+            android:label="Upload Surat Baru" />
+        <activity
+            android:name=".SuratSedangDiproses"
+            android:label="Surat Sedang Diproses" />
+        <activity
+            android:name=".SuratSudahDiproses"
+            android:label="Surat Sudah Diproses" />
+        <activity
+            android:name=".KeteranganBaru"
+            android:label="Surat Baru" />
+        <activity
+            android:name=".KeteranganSedang"
+            android:label="Surat Sedang Diproses" />
+        <activity
+            android:name=".KeteranganSudah"
+            android:label="Surat Sudah Diproses" />
+        <activity
+            android:name=".VerifikasiSurat"
+            android:label="Surat Belum Diverifikasi" />
+        <activity
+            android:name=".DisposisiKabid"
+            android:label="Disposisi Kabid" />
+        <activity
+            android:name=".DisposisiSubbid"
+            android:label="Disposisi Subbid" />
+        <activity
+            android:name=".DisposisiStaff"
+            android:label="Disposisi Staff" />
+        <activity
+            android:name=".KeteranganVerifikasi"
+            android:label="Verifikasi Surat" />
+        <activity android:name=".Kembalikan" />
+        <activity android:name=".Teruskan"></activity>
+    </application>
+
+</manifest>
