@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "194721565222",
+    "firebase_url": "https://kp-hari.firebaseio.com",
+    "project_id": "kp-hari",
+    "storage_bucket": "kp-hari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194721565222:android:90c3fd811c4bfb70",
+        "android_client_info": {
+          "package_name": "com.example.user.suratbpkad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194721565222-7silhte4ndnuerfgihcmr61igfs5ps00.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.suratbpkad",
+            "certificate_hash": "3c1a3e78f8964864169f50839c4d8532e70f4652"
+          }
+        },
+        {
+          "client_id": "194721565222-o0f0rhjiri3r0ihtqtceq1el3nom7vf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA72SiGZw4rbRAXzp5ztyUGds8_nUAIpoI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194721565222-o0f0rhjiri3r0ihtqtceq1el3nom7vf9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
