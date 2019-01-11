@@ -3,6 +3,7 @@ package com.example.user.suratbpkad;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.Tag;
@@ -30,6 +31,7 @@ public class UploadSuratBaru extends AppCompatActivity {
     EditText mPerihal;
     EditText mMemo;
     Button mUpload;
+    int i=0;
 
 
     @Override
@@ -122,7 +124,7 @@ public class UploadSuratBaru extends AppCompatActivity {
                             myRef.child("Pengirim").setValue(mPengirim.getText().toString());
                             myRef.child("Perihal").setValue(mPerihal.getText().toString());
                             myRef.child("Status").setValue("Baru Diupload");
-                            myRef.child("Sifat").setValue("Segera");
+                            myRef.child("Sifat").setValue("Belum Ada");
                             myRef.child("Yang Ditugaskan").setValue("Belum Ada");
 
                             if (mMemo.getText().length() == 0)
@@ -139,6 +141,9 @@ public class UploadSuratBaru extends AppCompatActivity {
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
+
+                            Intent i = new Intent(UploadSuratBaru.this, DisposisiKabid.class);
+                            startActivity(i);
                         } else{
                             Context context = getApplicationContext();
                             CharSequence text = "Tidak Ada Koneksi";
