@@ -54,19 +54,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Perihal"
-                        android:textSize="14dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="14dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
+                        android:id="@+id/perihal_baru"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e"
-                        android:textSize="14dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,19 +82,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Nomor"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="14dp"/>
 
                     <TextView
+                        android:id="@+id/nomor_baru"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12345678"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,19 +110,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Pengirim"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="14dp"/>
 
                     <TextView
+                        android:id="@+id/pengirim_baru"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="abcdefg"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -135,19 +138,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Tanggal Terima"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="14dp"/>
 
                     <TextView
+                        android:id="@+id/tanggal_baru"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="dd/mm/yyyy"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -192,19 +196,20 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="Perihal"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=": "
-                                android:textSize="12dp"/>
+                                android:textSize="14dp"/>
 
                             <TextView
+                                android:id="@+id/perihal_sedang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -219,19 +224,20 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="Nomor"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=": "
-                                android:textSize="12dp"/>
+                                android:textSize="14dp"/>
 
                             <TextView
+                                android:id="@+id/nomor_sedang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="12345678"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -246,19 +252,20 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="Pengirim"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=": "
-                                android:textSize="12dp"/>
+                                android:textSize="14dp"/>
 
                             <TextView
+                                android:id="@+id/pengirim_sedang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="abcdefg"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -273,7 +280,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="Tanggal Terima"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -282,10 +289,11 @@
                                 android:textSize="12dp"/>
 
                             <TextView
+                                android:id="@+id/tanggal_sedang"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="dd/mm/yyyy"
-                                android:textSize="12dp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
                     </LinearLayout>
                     <View
@@ -334,19 +342,20 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="Perihal"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=": "
-                            android:textSize="12dp"/>
+                            android:textSize="14dp"/>
 
                         <TextView
+                            android:id="@+id/perihal_verif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -361,19 +370,20 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="Nomor"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=": "
-                            android:textSize="12dp"/>
+                            android:textSize="14dp"/>
 
                         <TextView
+                            android:id="@+id/nomor_verif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12345678"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -388,19 +398,20 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="Pengirim"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=": "
-                            android:textSize="12dp"/>
+                            android:textSize="14dp"/>
 
                         <TextView
+                            android:id="@+id/pengirim_verif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="abcdefg"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -415,19 +426,20 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="Tanggal Terima"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=": "
-                            android:textSize="12dp"/>
+                            android:textSize="14dp"/>
 
                         <TextView
+                            android:id="@+id/tanggal_terima_verif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="dd/mm/yyyy"
-                            android:textSize="12dp" />
+                            android:textSize="14dp" />
                     </LinearLayout>
                 </LinearLayout>
                 <View

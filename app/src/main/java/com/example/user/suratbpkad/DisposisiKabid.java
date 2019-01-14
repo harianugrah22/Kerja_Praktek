@@ -1,5 +1,6 @@
 package com.example.user.suratbpkad;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,27 +31,253 @@ public class DisposisiKabid extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disposisi_kabid);
-        ListView listView1 = (ListView) findViewById(R.id.view_surat);
 
+        Intent intent = getIntent();
+        final String Konteks = intent.getStringExtra("Konteks");
+
+        if (Konteks.equals("Baru")){
+            Tampilan_Baru();
+        } else if (Konteks.equals("Diproses")){
+            Tampilan_Diproses();
+        } else if (Konteks.equals("Verifikasi")){
+            Tampilan_Verifikasi();
+        } else{
+            Tampilan_Baru();
+        }
+    }
+
+    public void Tampilan_Baru(){
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
+        mdb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    surats.clear();
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
-        {
-            SuratAdapter adapter = new SuratAdapter(this, retrieve());
-            listView1.setAdapter(adapter);
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
 
-        } else{
-            Context context = getApplicationContext();
-            CharSequence text = "Tidak Ada Koneksi";
-            int duration = Toast.LENGTH_SHORT;
+                        if (status.equals("Baru Diupload")){
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
+                    if (i==0){
+                        Surat surat = new Surat();
+                        i=i+1;
+                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPerihal_surat("Belum Ada Surat");
+                        surat.setNomor_surat("Belum Ada Surat");
+                        surat.setPengirim_surat("Belum Ada Surat");
+                        surat.setTanggal_surat("Belum Ada Surat");
+                        surat.setTanggal_terima("Belum Ada Surat");
+                        surat.setStatus_surat("Belum Ada Surat");
+                        surat.setSifat_surat("Belum Ada Surat");
+                        surat.setYang_ditugaskan("Belum Ada Surat");
+                        surats.add(surat);
+                    }
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                } else {
+                    Surat surat = new Surat();
+                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPerihal_surat("Belum Ada Surat");
+                    surat.setNomor_surat("Belum Ada Surat");
+                    surat.setPengirim_surat("Belum Ada Surat");
+                    surat.setTanggal_surat("Belum Ada Surat");
+                    surat.setTanggal_terima("Belum Ada Surat");
+                    surat.setStatus_surat("Belum Ada Surat");
+                    surat.setSifat_surat("Belum Ada Surat");
+                    surat.setYang_ditugaskan("Belum Ada Surat");
+                    surats.add(surat);
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void Tampilan_Diproses(){
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Surat");
+        mdb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    surats.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+
+                        if (status.equals("Sedang Diproses")){
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
+                    if (i==0){
+                        Surat surat = new Surat();
+                        i=i+1;
+                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPerihal_surat("Belum Ada Surat");
+                        surat.setNomor_surat("Belum Ada Surat");
+                        surat.setPengirim_surat("Belum Ada Surat");
+                        surat.setTanggal_surat("Belum Ada Surat");
+                        surat.setTanggal_terima("Belum Ada Surat");
+                        surat.setStatus_surat("Belum Ada Surat");
+                        surat.setSifat_surat("Belum Ada Surat");
+                        surat.setYang_ditugaskan("Belum Ada Surat");
+                        surats.add(surat);
+                    }
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                }else {
+                    Surat surat = new Surat();
+                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPerihal_surat("Belum Ada Surat");
+                    surat.setNomor_surat("Belum Ada Surat");
+                    surat.setPengirim_surat("Belum Ada Surat");
+                    surat.setTanggal_surat("Belum Ada Surat");
+                    surat.setTanggal_terima("Belum Ada Surat");
+                    surat.setStatus_surat("Belum Ada Surat");
+                    surat.setSifat_surat("Belum Ada Surat");
+                    surat.setYang_ditugaskan("Belum Ada Surat");
+                    surats.add(surat);
+
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void Tampilan_Verifikasi(){
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Surat");
+        mdb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    surats.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+
+                        if (status.equals("Sedang Diverifikasi")){
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
+                    if (i==0){
+                        Surat surat = new Surat();
+                        i=i+1;
+                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPerihal_surat("Belum Ada Surat");
+                        surat.setNomor_surat("Belum Ada Surat");
+                        surat.setPengirim_surat("Belum Ada Surat");
+                        surat.setTanggal_surat("Belum Ada Surat");
+                        surat.setTanggal_terima("Belum Ada Surat");
+                        surat.setStatus_surat("Belum Ada Surat");
+                        surat.setSifat_surat("Belum Ada Surat");
+                        surat.setYang_ditugaskan("Belum Ada Surat");
+                        surats.add(surat);
+                    }
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                }else {
+                    Surat surat = new Surat();
+                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPerihal_surat("Belum Ada Surat");
+                    surat.setNomor_surat("Belum Ada Surat");
+                    surat.setPengirim_surat("Belum Ada Surat");
+                    surat.setTanggal_surat("Belum Ada Surat");
+                    surat.setTanggal_terima("Belum Ada Surat");
+                    surat.setStatus_surat("Belum Ada Surat");
+                    surat.setSifat_surat("Belum Ada Surat");
+                    surat.setYang_ditugaskan("Belum Ada Surat");
+                    surats.add(surat);
+
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     public class Ket_Surat implements AdapterView.OnItemClickListener {
@@ -64,67 +291,8 @@ public class DisposisiKabid extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Data Tidak Dapat Ditampilkan";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
                 }
             });
         }
-    }
-
-    public void FetchData(DataSnapshot dataSnapshot){
-        int i =0;
-        surats.clear();
-
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
-            Map<String, Object> map = (Map<String, Object>) ds.getValue();
-            String perihal = (String) map.get("Perihal");
-            String nomor_surat = (String) map.get("Nomor Surat");
-            String pengirim = (String) map.get("Pengirim");
-            String tanggal_surat = (String) map.get("Tanggal Surat");
-            String tanggal_terima = (String) map.get("Tanggal Terima");
-            String status = (String) map.get("Status");
-            String sifat = (String) map.get("Sifat");
-            String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
-
-            Surat surat = new Surat();
-            i=i+1;
-            surat.setPenomoran(Integer.toString(i));
-            surat.setPerihal_surat(perihal);
-            surat.setNomor_surat(nomor_surat);
-            surat.setPengirim_surat(pengirim);
-            surat.setTanggal_surat(tanggal_surat);
-            surat.setTanggal_terima(tanggal_terima);
-            surat.setStatus_surat(status);
-            surat.setSifat_surat(sifat);
-            surat.setYang_ditugaskan(yang_ditugaskan);
-
-            surats.add(surat);
-        }
-    }
-
-    public ArrayList<Surat> retrieve(){
-        mdb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Context context = getApplicationContext();
-                CharSequence text = "Data Tidak Dapat Diterima";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            }
-        });
-        return surats;
     }
 }

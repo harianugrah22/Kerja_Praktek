@@ -8,7 +8,6 @@ public class Surat {
     String penomoran, perihal_surat, nomor_surat, pengirim_surat, tanggal_surat, tanggal_terima, status_surat, sifat_surat, yang_ditugaskan, memo_surat;
 
     public Surat(){
-
     }
 
     public String getPenomoran(){return penomoran;}

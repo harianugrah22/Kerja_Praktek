@@ -15,12 +15,12 @@ import java.util.ArrayList;
 
 public class SuratAdapter extends BaseAdapter {
 
-    Context c;
+    Context context;
     ArrayList<Surat> surats;
 
     public SuratAdapter(Context c, ArrayList<Surat> surats) {
-        this.c = c;
-        this.surats = surats;
+        SuratAdapter.this.context = c;
+        SuratAdapter.this.surats = surats;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SuratAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView==null){
-            convertView = LayoutInflater.from(c).inflate(R.layout.content_disposisi_kabid,parent,false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.content_disposisi_kabid,parent,false);
         }
 
         TextView penomoranTxt = (TextView) convertView.findViewById(R.id.penomoran);

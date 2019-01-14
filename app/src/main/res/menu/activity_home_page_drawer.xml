@@ -15,21 +15,29 @@
             <item
                 android:id="@+id/disposisi_kabid"
                 android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="Disposisi Kabid" />
+                android:title="Disposisi" />
             <item
                 android:id="@+id/disposisi_subbid"
                 android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="Disposisi Subid" />
-            <item
-                android:id="@+id/disposisi_staff"
-                android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="Disposisi Staff" />
+                android:title="hanya cek tampilan" />
         </menu>
     </item>
-    <item android:title="Surat Diproses">
+    <item android:title="Surat Pribadi">
         <menu>
             <item
                 android:id="@+id/surat_sedang_diproses"
+                android:icon="@drawable/ic_assignment_black_24dp"
+                android:title="Surat Sedang Diproses" />
+            <item
+                android:id="@+id/surat_selesai"
+                android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+                android:title="Surat Sudah Diproses" />
+        </menu>
+    </item>
+    <item android:title="Surat Kelompok">
+        <menu>
+            <item
+                android:id="@+id/surat_kelompok_sedang_diproses"
                 android:icon="@drawable/ic_assignment_black_24dp"
                 android:title="Surat Sedang Diproses" />
             <item
@@ -37,7 +45,7 @@
                 android:icon="@drawable/ic_assignment_late_black_24dp"
                 android:title="Verifikasi Surat" />
             <item
-                android:id="@+id/surat_selesai"
+                android:id="@+id/surat_kelompok_sedang_diproses_selesai"
                 android:icon="@drawable/ic_assignment_turned_in_black_24dp"
                 android:title="Surat Sudah Diproses" />
         </menu>

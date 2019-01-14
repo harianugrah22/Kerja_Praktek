@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="14dp"
+                android:textSize="18dp"
                 android:text="1"
                 />
 
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="14dp"
+                android:textSize="18dp"
                 android:text=") "
                 />
 
@@ -46,20 +46,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Perihal"
-                        android:textSize="14dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="14dp"/>
+                        android:textSize="18dp"/>
 
                     <TextView
                         android:id="@+id/perihal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e"
-                        android:textSize="14dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -72,20 +72,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Nomor"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/nomor_surat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12345678"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,20 +97,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Pengirim"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/pengirim_surat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="abcdefg"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,20 +121,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Tanggal Surat"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/tanggal_surat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="dd/mm/yyyy"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,20 +145,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Tanggal Terima"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/tanggal_terima"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="dd/mm/yyyy"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,20 +169,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Status"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/status_surat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sedang Direview"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,20 +193,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Sifat"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/sifat_surat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Segera"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,20 +217,20 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Yang Ditugaskan"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "
-                        android:textSize="12dp"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/yang_ditugaskan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nama"
-                        android:textSize="12dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
