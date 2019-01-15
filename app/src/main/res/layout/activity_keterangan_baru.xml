@@ -37,6 +37,7 @@
                     android:textSize="18dp"/>
 
                 <TextView
+                    android:id="@+id/nomor_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -63,6 +64,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/tanggal_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -89,6 +91,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/tanggal_terima"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -115,6 +118,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/pengirim_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -140,16 +144,15 @@
                     android:layout_height="wrap_content"
                     android:text=": "
                     android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/perihal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textSize="18dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e" />
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:textSize="18dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,6 +193,7 @@
                 android:text="Teruskan"
                 android:textStyle="bold" />
             <Button
+                android:id="@+id/terima"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

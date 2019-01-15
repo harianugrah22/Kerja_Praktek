@@ -5,11 +5,13 @@ package com.example.user.suratbpkad;
  */
 
 public class Surat {
-    String penomoran, perihal_surat, nomor_surat, pengirim_surat, tanggal_surat, tanggal_terima, status_surat, sifat_surat, yang_ditugaskan, memo_surat;
+    String key, penomoran, perihal_surat, nomor_surat, pengirim_surat, tanggal_surat, tanggal_terima, status_surat, sifat_surat, yang_ditugaskan, memo_surat;
 
     public Surat(){
     }
 
+    public String getKey(){return key;}
+    public void setKey(String key) {this.key = key;}
     public String getPenomoran(){return penomoran;}
     public void setPenomoran(String penomoran) {this.penomoran = penomoran;}
     public String getPerihal_surat(){return perihal_surat;}

@@ -122,12 +122,15 @@ public class UploadSuratBaru extends AppCompatActivity {
     public void Kesediaan(DataSnapshot dataSnapshot){
         String nomor_surat;
         String pengirim;
+        String tanggal_surat;
         if (dataSnapshot.exists()){
             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                 Map<String, Object> map = (Map<String, Object>) ds.getValue();
                 nomor_surat = (String) map.get("Nomor Surat");
                 pengirim = (String) map.get("Pengirim");
-                 if (nomor_surat.equals(mNomorSurat.getText().toString()) && pengirim.equals(mPengirim.getText().toString())){
+                tanggal_surat = (String) map.get("Tanggal Surat");
+                 if (nomor_surat.equals(mNomorSurat.getText().toString()) && pengirim.equals(mPengirim.getText().toString())
+                         && tanggal_surat.equals(mTanggalSurat.getText().toString())){
                     kesediaan = "No";
                     break;
                 } else{
@@ -147,7 +150,7 @@ public class UploadSuratBaru extends AppCompatActivity {
 
                 if (mMemo.getText().length() == 0)
                 {
-                    myRef.child("Memo").setValue("Kosong");
+                    myRef.child("Memo").setValue("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e");
                 } else{
                     myRef.child("Memo").setValue(mMemo.getText().toString());
                 }

@@ -5,10 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.suratbpkad.DisposisiKabid">
-    <ListView
-        android:id="@+id/view_surat"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/view_surat"
+            android:layout_width="match_parent"
+            android:layout_height="490dp">
+        </ListView>
+        <Button
+            android:id="@+id/refresh_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Refresh"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

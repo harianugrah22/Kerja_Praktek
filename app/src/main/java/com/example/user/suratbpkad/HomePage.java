@@ -86,7 +86,7 @@ public class HomePage extends AppCompatActivity
                             pengirim_diproses = (String) map.get("Pengirim");
                             tanggal_terima_diproses = (String) map.get("Tanggal Terima");
                         }
-                        if (status.equals("Sedang Diproses")){
+                        if (status.equals("Sedang Diverifikasi")){
                             c=c+1;
                             perihal_verif = (String) map.get("Perihal");
                             nomor_verif = (String) map.get("Nomor Surat");
