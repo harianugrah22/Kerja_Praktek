@@ -1,6 +1,8 @@
 package com.example.user.suratbpkad;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,191 +45,224 @@ public class HomePage extends AppCompatActivity
     String nomor_diproses;
     String pengirim_diproses;
     String tanggal_terima_diproses;
+    String perihal_direview;
+    String nomor_direview;
+    String pengirim_direview;
+    String tanggal_terima_direview;
     String perihal_verif;
     String nomor_verif;
     String pengirim_verif;
     String tanggal_terima_verif;
+    String perihal_selesai;
+    String nomor_selesai;
+    String pengirim_selesai;
+    String tanggal_terima_selesai;
     int a=0;
     int b=0;
     int c=0;
+    int d=0;
+    int e=0;
+    String auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setContentView(R.layout.activity_home_page);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Sedang Memperoleh Data Terbaru", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+            mdata = FirebaseDatabase.getInstance();
+            mdb = mdata.getReference("Surat");
+            Toast toast = Toast.makeText(getApplicationContext(), "Sedang Memperoleh Data Terbaru", Toast.LENGTH_SHORT);
+            toast.show();
+            setSupportActionBar(toolbar);
 
-        mdata = FirebaseDatabase.getInstance();
-        mdb = mdata.getReference("Surat");
-        setSupportActionBar(toolbar);
-
-        mdb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        status = (String) map.get("Status");
-                        if (status.equals("Baru Diupload")){
-                            a=a+1;
-                            perihal = (String) map.get("Perihal");
-                            nomor_surat = (String) map.get("Nomor Surat");
-                            pengirim = (String) map.get("Pengirim");
-                            tanggal_terima = (String) map.get("Tanggal Terima");
+            mdb.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                            status = (String) map.get("Status");
+                            if (status.equals("Baru Diupload")){
+                                a=a+1;
+                                perihal = (String) map.get("Perihal");
+                                nomor_surat = (String) map.get("Nomor Surat");
+                                pengirim = (String) map.get("Pengirim");
+                                tanggal_terima = (String) map.get("Tanggal Terima");
+                            }
+                            if (status.equals("Sedang Direview")){
+                                d=d+1;
+                                perihal_direview = (String) map.get("Perihal");
+                                nomor_direview = (String) map.get("Nomor Surat");
+                                pengirim_direview = (String) map.get("Pengirim");
+                                tanggal_terima_direview = (String) map.get("Tanggal Terima");
+                            }
+                            if (status.equals("Sedang Diproses")){
+                                b=b+1;
+                                perihal_diproses = (String) map.get("Perihal");
+                                nomor_diproses = (String) map.get("Nomor Surat");
+                                pengirim_diproses = (String) map.get("Pengirim");
+                                tanggal_terima_diproses = (String) map.get("Tanggal Terima");
+                            }
+                            if (status.equals("Sedang Diverifikasi")){
+                                c=c+1;
+                                perihal_verif = (String) map.get("Perihal");
+                                nomor_verif = (String) map.get("Nomor Surat");
+                                pengirim_verif = (String) map.get("Pengirim");
+                                tanggal_terima_verif = (String) map.get("Tanggal Terima");
+                            } if (status.equals("Sudah Diverifikasi")){
+                                e=e+1;
+                                perihal_selesai = (String) map.get("Perihal");
+                                nomor_selesai = (String) map.get("Nomor Surat");
+                                pengirim_selesai = (String) map.get("Pengirim");
+                                tanggal_terima_selesai = (String) map.get("Tanggal Terima");
+                            }
                         }
-                        if (status.equals("Sedang Diproses")){
-                            b=b+1;
-                            perihal_diproses = (String) map.get("Perihal");
-                            nomor_diproses = (String) map.get("Nomor Surat");
-                            pengirim_diproses = (String) map.get("Pengirim");
-                            tanggal_terima_diproses = (String) map.get("Tanggal Terima");
+
+                        TextView perihalTxt = (TextView) findViewById(R.id.perihal_baru);
+                        TextView nomor_suratTxt = (TextView) findViewById(R.id.nomor_baru);
+                        TextView pengirimTxt = (TextView) findViewById(R.id.pengirim_baru);
+                        TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_baru);
+
+                        TextView perihal_diprosesTxt = (TextView) findViewById(R.id.perihal_sedang);
+                        TextView nomor_diprosesTxt = (TextView) findViewById(R.id.nomor_sedang);
+                        TextView pengirim_diprosesTxt = (TextView) findViewById(R.id.pengirim_sedang);
+                        TextView tanggal_terima_diprosesTxt = (TextView) findViewById(R.id.tanggal_sedang);
+
+                        TextView perihal_verifTxt = (TextView) findViewById(R.id.perihal_verif);
+                        TextView nomor_verifTxt = (TextView) findViewById(R.id.nomor_verif);
+                        TextView pengirim_verifTxt = (TextView) findViewById(R.id.pengirim_verif);
+                        TextView tanggal_terima_verifTxt = (TextView) findViewById(R.id.tanggal_terima_verif);
+
+                        if (a!=0){
+                            perihalTxt.setText(perihal);
+                            nomor_suratTxt.setText(nomor_surat);
+                            pengirimTxt.setText(pengirim);
+                            tanggal_terimaTxt.setText(tanggal_terima);
+                        } else {
+                            perihalTxt.setText("Belum Ada Surat");
+                            nomor_suratTxt.setText("Belum Ada Surat");
+                            pengirimTxt.setText("Belum Ada Surat");
+                            tanggal_terimaTxt.setText("Belum Ada Surat");
                         }
-                        if (status.equals("Sedang Diverifikasi")){
-                            c=c+1;
-                            perihal_verif = (String) map.get("Perihal");
-                            nomor_verif = (String) map.get("Nomor Surat");
-                            pengirim_verif = (String) map.get("Pengirim");
-                            tanggal_terima_verif = (String) map.get("Tanggal Terima");
+
+                        if (b!=0){
+                            perihal_diprosesTxt.setText(perihal_diproses);
+                            nomor_diprosesTxt.setText(nomor_diproses);
+                            pengirim_diprosesTxt.setText(pengirim_diproses);
+                            tanggal_terima_diprosesTxt.setText(tanggal_terima_diproses);
                         }
-                    }
+                        else if(d!=0){
+                            perihal_diprosesTxt.setText(perihal_direview);
+                            nomor_diprosesTxt.setText(nomor_direview);
+                            pengirim_diprosesTxt.setText(pengirim_direview);
+                            tanggal_terima_diprosesTxt.setText(tanggal_terima_direview);
+                        } else{
+                            perihal_diprosesTxt.setText("Belum Ada Surat");
+                            nomor_diprosesTxt.setText("Belum Ada Surat");
+                            pengirim_diprosesTxt.setText("Belum Ada Surat");
+                            tanggal_terima_diprosesTxt.setText("Belum Ada Surat");
+                        }
 
-                    TextView perihalTxt = (TextView) findViewById(R.id.perihal_baru);
-                    TextView nomor_suratTxt = (TextView) findViewById(R.id.nomor_baru);
-                    TextView pengirimTxt = (TextView) findViewById(R.id.pengirim_baru);
-                    TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_baru);
-
-                    TextView perihal_diprosesTxt = (TextView) findViewById(R.id.perihal_sedang);
-                    TextView nomor_diprosesTxt = (TextView) findViewById(R.id.nomor_sedang);
-                    TextView pengirim_diprosesTxt = (TextView) findViewById(R.id.pengirim_sedang);
-                    TextView tanggal_terima_diprosesTxt = (TextView) findViewById(R.id.tanggal_sedang);
-
-                    TextView perihal_verifTxt = (TextView) findViewById(R.id.perihal_verif);
-                    TextView nomor_verifTxt = (TextView) findViewById(R.id.nomor_verif);
-                    TextView pengirim_verifTxt = (TextView) findViewById(R.id.pengirim_verif);
-                    TextView tanggal_terima_verifTxt = (TextView) findViewById(R.id.tanggal_terima_verif);
-
-                    if (a!=0){
-                        perihalTxt.setText(perihal);
-                        nomor_suratTxt.setText(nomor_surat);
-                        pengirimTxt.setText(pengirim);
-                        tanggal_terimaTxt.setText(tanggal_terima);
+                        if(c!=0) {
+                            perihal_verifTxt.setText(perihal_verif);
+                            nomor_verifTxt.setText(nomor_verif);
+                            pengirim_verifTxt.setText(pengirim_verif);
+                            tanggal_terima_verifTxt.setText(tanggal_terima_verif);
+                        } else if(e!=0){
+                            perihal_verifTxt.setText(perihal_selesai);
+                            nomor_verifTxt.setText(nomor_selesai);
+                            pengirim_verifTxt.setText(pengirim_selesai);
+                            tanggal_terima_verifTxt.setText(tanggal_terima_selesai);
+                        } else {
+                            perihal_verifTxt.setText("Belum Ada Surat");
+                            nomor_verifTxt.setText("Belum Ada Surat");
+                            pengirim_verifTxt.setText("Belum Ada Surat");
+                            tanggal_terima_verifTxt.setText("Belum Ada Surat");
+                        }
                     } else {
+                        TextView perihalTxt = (TextView) findViewById(R.id.perihal_baru);
+                        TextView nomor_suratTxt = (TextView) findViewById(R.id.nomor_baru);
+                        TextView pengirimTxt = (TextView) findViewById(R.id.pengirim_baru);
+                        TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_baru);
+
                         perihalTxt.setText("Belum Ada Surat");
                         nomor_suratTxt.setText("Belum Ada Surat");
                         pengirimTxt.setText("Belum Ada Surat");
                         tanggal_terimaTxt.setText("Belum Ada Surat");
-                    }
 
-                    if(b!=0){
-                        perihal_diprosesTxt.setText(perihal_diproses);
-                        nomor_diprosesTxt.setText(nomor_diproses);
-                        pengirim_diprosesTxt.setText(pengirim_diproses);
-                        tanggal_terima_diprosesTxt.setText(tanggal_terima_diproses);
-                    } else{
+                        TextView perihal_diprosesTxt = (TextView) findViewById(R.id.perihal_sedang);
+                        TextView nomor_diprosesTxt = (TextView) findViewById(R.id.nomor_sedang);
+                        TextView pengirim_diprosesTxt = (TextView) findViewById(R.id.pengirim_sedang);
+                        TextView tanggal_terima_diprosesTxt = (TextView) findViewById(R.id.tanggal_sedang);
+
                         perihal_diprosesTxt.setText("Belum Ada Surat");
                         nomor_diprosesTxt.setText("Belum Ada Surat");
                         pengirim_diprosesTxt.setText("Belum Ada Surat");
                         tanggal_terima_diprosesTxt.setText("Belum Ada Surat");
-                    }
 
-                    if(c!=0){
-                        perihal_verifTxt.setText(perihal_verif);
-                        nomor_verifTxt.setText(nomor_verif);
-                        pengirim_verifTxt.setText(pengirim_verif);
-                        tanggal_terima_verifTxt.setText(tanggal_terima_verif);
-                    } else {
+                        TextView perihal_verifTxt = (TextView) findViewById(R.id.perihal_verif);
+                        TextView nomor_verifTxt = (TextView) findViewById(R.id.nomor_verif);
+                        TextView pengirim_verifTxt = (TextView) findViewById(R.id.pengirim_verif);
+                        TextView tanggal_terima_verifTxt = (TextView) findViewById(R.id.tanggal_terima_verif);
+
                         perihal_verifTxt.setText("Belum Ada Surat");
                         nomor_verifTxt.setText("Belum Ada Surat");
                         pengirim_verifTxt.setText("Belum Ada Surat");
                         tanggal_terima_verifTxt.setText("Belum Ada Surat");
                     }
-                } else {
-                    TextView perihalTxt = (TextView) findViewById(R.id.perihal_baru);
-                    TextView nomor_suratTxt = (TextView) findViewById(R.id.nomor_baru);
-                    TextView pengirimTxt = (TextView) findViewById(R.id.pengirim_baru);
-                    TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_baru);
-
-                    perihalTxt.setText("Belum Ada Surat");
-                    nomor_suratTxt.setText("Belum Ada Surat");
-                    pengirimTxt.setText("Belum Ada Surat");
-                    tanggal_terimaTxt.setText("Belum Ada Surat");
-
-                    TextView perihal_diprosesTxt = (TextView) findViewById(R.id.perihal_sedang);
-                    TextView nomor_diprosesTxt = (TextView) findViewById(R.id.nomor_sedang);
-                    TextView pengirim_diprosesTxt = (TextView) findViewById(R.id.pengirim_sedang);
-                    TextView tanggal_terima_diprosesTxt = (TextView) findViewById(R.id.tanggal_sedang);
-
-                    perihal_diprosesTxt.setText("Belum Ada Surat");
-                    nomor_diprosesTxt.setText("Belum Ada Surat");
-                    pengirim_diprosesTxt.setText("Belum Ada Surat");
-                    tanggal_terima_diprosesTxt.setText("Belum Ada Surat");
-
-                    TextView perihal_verifTxt = (TextView) findViewById(R.id.perihal_verif);
-                    TextView nomor_verifTxt = (TextView) findViewById(R.id.nomor_verif);
-                    TextView pengirim_verifTxt = (TextView) findViewById(R.id.pengirim_verif);
-                    TextView tanggal_terima_verifTxt = (TextView) findViewById(R.id.tanggal_terima_verif);
-
-                    perihal_verifTxt.setText("Belum Ada Surat");
-                    nomor_verifTxt.setText("Belum Ada Surat");
-                    pengirim_verifTxt.setText("Belum Ada Surat");
-                    tanggal_terima_verifTxt.setText("Belum Ada Surat");
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(HomePage.this,UploadSuratBaru.class);
+                    startActivity(i);
+                }
+            });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(HomePage.this,UploadSuratBaru.class);
-                startActivity(i);
-            }
-        });
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            LinearLayout SuratBaru = (LinearLayout) findViewById(R.id.home_baru);
+            SuratBaru.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                    i.putExtra("Konteks", "Baru");
+                    startActivity(i);
+                }
+            });
+            LinearLayout SuratBelumDiproses = (LinearLayout) findViewById(R.id.home_sedang_diprosses);
+            SuratBelumDiproses.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                    i.putExtra("Konteks", "Diproses");
+                    startActivity(i);
+                }
+            });
+            LinearLayout SuratSedangDiproses = (LinearLayout) findViewById(R.id.home_verifikasi);
+            SuratSedangDiproses.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                    i.putExtra("Konteks", "Selesai");
+                    startActivity(i);
+                }
+            });
 
-        LinearLayout SuratBaru = (LinearLayout) findViewById(R.id.home_baru);
-        SuratBaru.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                i.putExtra("Konteks", "Baru");
-                startActivity(i);
-            }
-        });
-        LinearLayout SuratBelumDiproses = (LinearLayout) findViewById(R.id.home_sedang_diprosses);
-        SuratBelumDiproses.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                i.putExtra("Konteks", "Diproses");
-                startActivity(i);
-            }
-        });
-        LinearLayout SuratSedangDiproses = (LinearLayout) findViewById(R.id.home_verifikasi);
-        SuratSedangDiproses.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                i.putExtra("Konteks", "Verifikasi");
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -236,7 +271,19 @@ public class HomePage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Tekan Oke untuk Keluar Dari Aplikasi")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Intent a = new Intent(Intent.ACTION_MAIN);
+                            a.addCategory(Intent.CATEGORY_HOME);
+                            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(a);
+                        }
+                    }).create().show();
         }
     }
 
@@ -275,24 +322,20 @@ public class HomePage extends AppCompatActivity
             Intent i = new Intent(HomePage.this,DisposisiKabid.class);
             i.putExtra("Konteks", "Baru");
             startActivity(i);
-        } else if (id == R.id.disposisi_subbid) {
-            Intent i = new Intent(HomePage.this,DisposisiSubbid.class);
-            startActivity(i);
-        }  else if (id == R.id.surat_sedang_diproses) {
-            Intent i = new Intent(HomePage.this,SuratSedangDiproses.class);
+        } else if (id == R.id.surat_sedang_diproses) {
+            Intent i = new Intent(HomePage.this,DisposisiKabid.class);
+            i.putExtra("Konteks", "Diproses");
             startActivity(i);
         } else if (id == R.id.surat_selesai) {
-            Intent i = new Intent(HomePage.this,SuratSudahDiproses.class);
-            startActivity(i);
-        } else if (id == R.id.surat_kelompok_sedang_diproses) {
-            Intent i = new Intent(HomePage.this,SuratSedangDiproses.class);
+            Intent i = new Intent(HomePage.this,DisposisiKabid.class);
+            i.putExtra("Konteks", "Selesai");
             startActivity(i);
         } else if (id == R.id.verifikasi_surat) {
-            Intent i = new Intent(HomePage.this,VerifikasiSurat.class);
+            Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+            i.putExtra("Konteks", "Verifikasi");
             startActivity(i);
-        } else if (id == R.id.surat_kelompok_sedang_diproses_selesai) {
-            Intent i = new Intent(HomePage.this,SuratSudahDiproses.class);
-            startActivity(i);
+        } else if (id == R.id.ringkasan_surat_kelompok){
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -9,21 +9,12 @@
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
             android:title="Upload Surat Baru" />
     </group>
-
-    <item android:title="Disposisi Masuk">
+    <item android:title="Surat Pribadi">
         <menu>
             <item
                 android:id="@+id/disposisi_kabid"
                 android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="Disposisi" />
-            <item
-                android:id="@+id/disposisi_subbid"
-                android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="hanya cek tampilan" />
-        </menu>
-    </item>
-    <item android:title="Surat Pribadi">
-        <menu>
+                android:title="Disposisi Surat" />
             <item
                 android:id="@+id/surat_sedang_diproses"
                 android:icon="@drawable/ic_assignment_black_24dp"
@@ -31,23 +22,19 @@
             <item
                 android:id="@+id/surat_selesai"
                 android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                android:title="Surat Sudah Diproses" />
+                android:title="Surat Diverifikasi dan Selesai" />
         </menu>
     </item>
     <item android:title="Surat Kelompok">
         <menu>
             <item
-                android:id="@+id/surat_kelompok_sedang_diproses"
-                android:icon="@drawable/ic_assignment_black_24dp"
-                android:title="Surat Sedang Diproses" />
-            <item
                 android:id="@+id/verifikasi_surat"
                 android:icon="@drawable/ic_assignment_late_black_24dp"
                 android:title="Verifikasi Surat" />
             <item
-                android:id="@+id/surat_kelompok_sedang_diproses_selesai"
-                android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                android:title="Surat Sudah Diproses" />
+                android:id="@+id/ringkasan_surat_kelompok"
+                android:icon="@drawable/ic_assessment_black_24dp"
+                android:title="Ringkasan Surat Kelompok" />
         </menu>
     </item>
 </menu>

@@ -3,7 +3,10 @@ package com.example.user.suratbpkad;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,6 +61,57 @@ public class KeteranganSedang extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        Button Review = (Button) findViewById(R.id.sedang_review);
+        Review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String status = (String) dataSnapshot.child("Status").getValue();
+                        if (status.equals("Sedang Direview")){
+                            Toast toast = Toast.makeText(getApplicationContext(),"Status Surat = Sedang Direview", Toast.LENGTH_SHORT);
+                            toast.show();
+                        } else{
+                            mdb.child("Status").setValue("Sedang Direview");
+                            Toast toast = Toast.makeText(getApplicationContext(),"Status Surat Berhasil Diubah", Toast.LENGTH_SHORT);
+                            toast.show();
+                            mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String status = (String) dataSnapshot.child("Status").getValue();
+                                    TextView statusTxt = (TextView) findViewById(R.id.status_surat);
+                                    statusTxt.setText(status);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        Button Upload = (Button) findViewById(R.id.upload_laporan);
+        Upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mdb.child("Status").setValue("Sedang Diverifikasi");
+                Toast toast = Toast.makeText(getApplicationContext(),"Laporan Berhasil Diupload", Toast.LENGTH_SHORT);
+                toast.show();
+                Intent i = new Intent(KeteranganSedang.this,HomePage.class);
+                startActivity(i);
             }
         });
     }

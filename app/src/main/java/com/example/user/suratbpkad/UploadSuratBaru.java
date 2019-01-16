@@ -150,7 +150,7 @@ public class UploadSuratBaru extends AppCompatActivity {
 
                 if (mMemo.getText().length() == 0)
                 {
-                    myRef.child("Memo").setValue("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e");
+                    myRef.child("Memo").setValue("Kosong");
                 } else{
                     myRef.child("Memo").setValue(mMemo.getText().toString());
                 }

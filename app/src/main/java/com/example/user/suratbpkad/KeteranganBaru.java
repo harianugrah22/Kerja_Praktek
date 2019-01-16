@@ -26,7 +26,6 @@ public class KeteranganBaru extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keterangan_baru);
-        Button Teruskan = (Button) findViewById(R.id.teruskan);
         Intent intent = getIntent();
         final String Kunci = intent.getStringExtra("Kunci");
 
@@ -60,12 +59,33 @@ public class KeteranganBaru extends AppCompatActivity {
             }
         });
 
-
+        Button Teruskan = (Button) findViewById(R.id.teruskan);
         Teruskan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(KeteranganBaru.this, Teruskan.class);
                 startActivity(i);
+            }
+        });
+        Button Terima = (Button) findViewById(R.id.terima);
+        Terima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mdb.child("Status").setValue("Sedang Diproses");
+                        Toast toast = Toast.makeText(getApplicationContext(),"Status Surat Berhasil Diubah", Toast.LENGTH_SHORT);
+                        toast.show();
+                        Intent i = new Intent(KeteranganBaru.this,HomePage.class);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         mOpenDialogKembalikan=(Button) findViewById(R.id.kembalikan);

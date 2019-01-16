@@ -265,6 +265,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/sedang_review"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,6 +273,7 @@
                 android:text="Ubah Status \n (Sedang Direview)"
                 android:textStyle="bold" />
             <Button
+                android:id="@+id/upload_laporan"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -36,6 +36,7 @@
                     android:textSize="18dp"/>
 
                 <TextView
+                    android:id="@+id/nomor_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -62,6 +63,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/tanggal_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -88,6 +90,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/tanggal_terima"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -114,6 +117,7 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/pengirim_surat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -140,10 +144,38 @@
                     android:text=": "
                     android:textSize="18dp"/>
                 <TextView
+                    android:id="@+id/nama_pelaksana"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:text="Nama Pelaksana" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/status_surat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Sedang/Belum Direview" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -165,16 +197,42 @@
                     android:layout_height="wrap_content"
                     android:text=": "
                     android:textSize="18dp"/>
-
+                <TextView
+                    android:id="@+id/perihal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textSize="18dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e" />
             </LinearLayout>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:textSize="18dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Memo"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textSize="18dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -237,6 +295,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/back_home"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

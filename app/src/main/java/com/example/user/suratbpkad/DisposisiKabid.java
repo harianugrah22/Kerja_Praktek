@@ -39,6 +39,8 @@ public class DisposisiKabid extends AppCompatActivity {
             Tampilan_Baru();
         } else if (Konteks.equals("Diproses")){
             Tampilan_Diproses();
+        } else if (Konteks.equals("Selesai")){
+            Tampilan_Selesai();
         } else if (Konteks.equals("Verifikasi")){
             Tampilan_Verifikasi();
         } else{
@@ -60,8 +62,8 @@ public class DisposisiKabid extends AppCompatActivity {
                     Tampilan_Diproses();
                     Toast toast = Toast.makeText(getApplicationContext(), "Berhasil Direfresh", Toast.LENGTH_SHORT);
                     toast.show();
-                } else if (Konteks.equals("Verifikasi")){
-                    Tampilan_Verifikasi();
+                } else if (Konteks.equals("Selesai")){
+                    Tampilan_Selesai();
                     Toast toast = Toast.makeText(getApplicationContext(), "Berhasil Direfresh", Toast.LENGTH_SHORT);
                     toast.show();
                 } else{
@@ -115,8 +117,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     }
                     if (i==0){
                         Surat surat = new Surat();
-                        i=i+1;
-                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
@@ -131,18 +132,28 @@ public class DisposisiKabid extends AppCompatActivity {
                     SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
                     listView1.setAdapter(adapter);
 
-                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                            Intent i = new Intent(DisposisiKabid.this, KeteranganBaru.class);
-                            i.putExtra("Kunci",kunci[position]);
-                            startActivity(i);
-                        }
-                    });
+                    if (i==0){
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+                    } else {
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Intent i = new Intent(DisposisiKabid.this, KeteranganBaru.class);
+                                i.putExtra("Kunci",kunci[position]);
+                                startActivity(i);
+                            }
+                        });
+                    }
                 } else {
                     surats.clear();
                     Surat surat = new Surat();
-                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
@@ -213,10 +224,38 @@ public class DisposisiKabid extends AppCompatActivity {
                             surats.add(surat);
                         }
                     }
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String key = ds.getKey();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+
+                        if (status.equals("Sedang Direview")){
+                            kunci[i]=key;
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setKey(key);
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
                     if (i==0){
                         Surat surat = new Surat();
-                        i=i+1;
-                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
@@ -231,18 +270,28 @@ public class DisposisiKabid extends AppCompatActivity {
                     ListView listView1 = (ListView) findViewById(R.id.view_surat);
                     listView1.setAdapter(adapter);
 
-                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                            Intent i = new Intent(DisposisiKabid.this, KeteranganSedang.class);
-                            i.putExtra("Kunci",kunci[position]);
-                            startActivity(i);
-                        }
-                    });
+                    if (i==0){
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+                    } else {
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Intent i = new Intent(DisposisiKabid.this, KeteranganSedang.class);
+                                i.putExtra("Kunci",kunci[position]);
+                                startActivity(i);
+                            }
+                        });
+                    }
                 }else {
                     surats.clear();
                     Surat surat = new Surat();
-                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
@@ -267,6 +316,143 @@ public class DisposisiKabid extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void Tampilan_Selesai(){
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Surat");
+        mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    final String kunci[] = new String[9999];
+                    surats.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String key = ds.getKey();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+
+                        if (status.equals("Sedang Diverifikasi")){
+                            kunci[i]=key;
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setKey(key);
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String key = ds.getKey();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                        String status = (String) map.get("Status");
+                        String sifat = (String) map.get("Sifat");
+                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+
+                        if (status.equals("Sudah Diverifikasi")){
+                            kunci[i]=key;
+                            Surat surat = new Surat();
+                            i=i+1;
+                            surat.setKey(key);
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setTanggal_terima(tanggal_terima);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surat.setYang_ditugaskan(yang_ditugaskan);
+                            surats.add(surat);
+                        }
+                    }
+                    if (i==0){
+                        Surat surat = new Surat();
+                        surat.setPenomoran("1");
+                        surat.setPerihal_surat("Belum Ada Surat");
+                        surat.setNomor_surat("Belum Ada Surat");
+                        surat.setPengirim_surat("Belum Ada Surat");
+                        surat.setTanggal_surat("Belum Ada Surat");
+                        surat.setTanggal_terima("Belum Ada Surat");
+                        surat.setStatus_surat("Belum Ada Surat");
+                        surat.setSifat_surat("Belum Ada Surat");
+                        surat.setYang_ditugaskan("Belum Ada Surat");
+                        surats.add(surat);
+                    }
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+
+                    if (i==0){
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+                    } else {
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Intent i = new Intent(DisposisiKabid.this, KeteranganSudah.class);
+                                i.putExtra("Kunci",kunci[position]);
+                                startActivity(i);
+                            }
+                        });
+                    }
+                }else {
+                    surats.clear();
+                    Surat surat = new Surat();
+                    surat.setPenomoran("1");
+                    surat.setPerihal_surat("Belum Ada Surat");
+                    surat.setNomor_surat("Belum Ada Surat");
+                    surat.setPengirim_surat("Belum Ada Surat");
+                    surat.setTanggal_surat("Belum Ada Surat");
+                    surat.setTanggal_terima("Belum Ada Surat");
+                    surat.setStatus_surat("Belum Ada Surat");
+                    surat.setSifat_surat("Belum Ada Surat");
+                    surat.setYang_ditugaskan("Belum Ada Surat");
+                    surats.add(surat);
+
+                    SuratAdapter adapter = new SuratAdapter(DisposisiKabid.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_surat);
+                    listView1.setAdapter(adapter);
+
+                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -315,8 +501,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     }
                     if (i==0){
                         Surat surat = new Surat();
-                        i=i+1;
-                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
@@ -331,18 +516,28 @@ public class DisposisiKabid extends AppCompatActivity {
                     ListView listView1 = (ListView) findViewById(R.id.view_surat);
                     listView1.setAdapter(adapter);
 
-                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                            Intent i = new Intent(DisposisiKabid.this, KeteranganVerifikasi.class);
-                            i.putExtra("Kunci",kunci[position]);
-                            startActivity(i);
-                        }
-                    });
+                    if (i==0){
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+                    } else {
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Intent i = new Intent(DisposisiKabid.this, KeteranganVerifikasi.class);
+                                i.putExtra("Kunci",kunci[position]);
+                                startActivity(i);
+                            }
+                        });
+                    }
                 }else {
                     surats.clear();
                     Surat surat = new Surat();
-                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
@@ -366,7 +561,6 @@ public class DisposisiKabid extends AppCompatActivity {
                     });
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
