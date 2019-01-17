@@ -181,7 +181,7 @@ public class UploadSuratBaru extends AppCompatActivity {
             myRef.child("Pengirim").setValue(mPengirim.getText().toString());
             myRef.child("Perihal").setValue(mPerihal.getText().toString());
             myRef.child("Sifat").setValue("Belum Ada");
-            myRef.child("Yang Ditugaskan").setValue("Belum Ada");
+            myRef.child("Yang Ditugaskan").setValue("Kabid");
 
             if (mMemo.getText().length() == 0)
             {

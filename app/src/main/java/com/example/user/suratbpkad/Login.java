@@ -35,9 +35,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -49,6 +61,9 @@ public class Login extends AppCompatActivity {
     private EditText mUsernameView;
     private EditText mPasswordView;
     private View mLoginFormView;
+    String username;
+    String password;
+    String cek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +77,68 @@ public class Login extends AppCompatActivity {
         mLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
-                {
-                    Intent  i = new Intent(Login.this,HomePage.class);
-                    startActivity(i);
-                } else{
-                    Context context = getApplicationContext();
-                    CharSequence text = "Tidak Ada Koneksi";
-                    int duration = Toast.LENGTH_SHORT;
+                new InternetCheck(new InternetCheck.Consumer() {
+                    @Override
+                    public void accept(Boolean internet) {
+                        if (internet) {
+                            FirebaseDatabase mdata = FirebaseDatabase.getInstance();
+                            DatabaseReference mdb = mdata.getReference("Users");
+                            mdb.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()){
+                                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                            Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                                            username = (String) map.get("Username");
+                                            password = (String) map.get("Password");
+                                            if (username.equals(mUsernameView.getText().toString())){
+                                                if (password.equals(mPasswordView.getText().toString())){
+                                                    Intent  i = new Intent(Login.this,HomePage.class);
+                                                    startActivity(i);
+                                                    cek = "Yes";
+                                                    break;
+                                                } else{
+                                                    Context context = getApplicationContext();
+                                                    CharSequence text = "Password Salah";
+                                                    int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
+                                                    Toast toast = Toast.makeText(context, text, duration);
+                                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                                    toast.show();
+                                                    cek = "Yes";
+                                                    break;
+                                                }
+                                            } else{
+                                                cek = "No";
+                                            }
+                                        }
+                                        if (cek.equals("Yes")){
+                                        } else{
+                                            Context context = getApplicationContext();
+                                            CharSequence text = "Akun Tidak Ada Dalam Database";
+                                            int duration = Toast.LENGTH_SHORT;
+
+                                            Toast toast = Toast.makeText(context, text, duration);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                        } else {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Tidak Ada Koneksi";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }
+                });
             }
         });
 

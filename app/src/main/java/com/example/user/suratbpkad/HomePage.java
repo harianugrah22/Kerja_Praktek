@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
@@ -21,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +36,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class HomePage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseDatabase mdata;
     DatabaseReference mdb;
     String perihal;
@@ -62,7 +65,28 @@ public class HomePage extends AppCompatActivity
     int c=0;
     int d=0;
     int e=0;
-    String auth;
+
+    protected void onStart(){
+        super.onStart();
+        new InternetCheck(new InternetCheck.Consumer() {
+            @Override
+            public void accept(Boolean internet) {
+                if (internet) {
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Tidak Ada Koneksi";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+
+                    Intent  i = new Intent(HomePage.this,Login.class);
+                    startActivity(i);
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +96,6 @@ public class HomePage extends AppCompatActivity
 
             mdata = FirebaseDatabase.getInstance();
             mdb = mdata.getReference("Surat");
-            Toast toast = Toast.makeText(getApplicationContext(), "Sedang Memperoleh Data Terbaru", Toast.LENGTH_SHORT);
-            toast.show();
             setSupportActionBar(toolbar);
 
             mdb.addValueEventListener(new ValueEventListener() {
@@ -262,7 +284,6 @@ public class HomePage extends AppCompatActivity
                     startActivity(i);
                 }
             });
-
     }
 
     @Override

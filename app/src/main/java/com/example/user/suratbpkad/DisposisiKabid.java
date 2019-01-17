@@ -177,7 +177,6 @@ public class DisposisiKabid extends AppCompatActivity {
                     });
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -315,7 +314,6 @@ public class DisposisiKabid extends AppCompatActivity {
                     });
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
