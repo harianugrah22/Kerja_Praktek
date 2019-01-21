@@ -99,6 +99,7 @@ public class KeteranganBaru extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(KeteranganBaru.this, Kembalikan.class);
+                i.putExtra("Kunci",Kunci);
                 startActivity(i);
             }
         });

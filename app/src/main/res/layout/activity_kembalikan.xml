@@ -33,7 +33,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/alasan"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginLeft="8dp"
@@ -42,7 +42,7 @@
             android:inputType="textMultiLine" />
 
         <Button
-            android:id="@+id/ambil_gambar_surat"
+            android:id="@+id/kembalikan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Kembalikan"/>

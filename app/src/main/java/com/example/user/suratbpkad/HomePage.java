@@ -391,6 +391,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             peran.edit().clear().commit();
             nama.edit().clear().commit();
             Intent i = new Intent(HomePage.this,Login.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }
 

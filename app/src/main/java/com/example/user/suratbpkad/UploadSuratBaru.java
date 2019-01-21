@@ -209,7 +209,7 @@ public class UploadSuratBaru extends AppCompatActivity {
                                }
 
                                Context context = getApplicationContext();
-                               CharSequence text = kabid;
+                               CharSequence text = "Surat Berhasil Diupload";
                                int duration = Toast.LENGTH_LONG;
 
                                Toast toast = Toast.makeText(context, text, duration);

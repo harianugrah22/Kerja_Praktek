@@ -92,6 +92,7 @@ public class DisposisiKabid extends AppCompatActivity {
                         final String kunci[] = new String[9999];
                         ArrayList<String> name = new ArrayList<String>();
                         String nama;
+                        String nama2;
                         surats.clear();
 
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -102,12 +103,13 @@ public class DisposisiKabid extends AppCompatActivity {
                                 for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                     String key2 = ab.getKey();
                                     nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                    name.add(nama);
-                                }
-                                for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                    String key2 = ab.getKey();
-                                    nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                     if (nama.equals(mUser)){
+                                        name.clear();
+                                        for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                            String key3 = bc.getKey();
+                                            nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                            name.add(nama2);
+                                        }
                                         kunci[i]=key;
                                         String perihal = (String) map.get("Perihal");
                                         String nomor_surat = (String) map.get("Nomor Surat");
@@ -214,6 +216,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     final String kunci[] = new String[9999];
                     ArrayList<String> name = new ArrayList<String>();
                     String nama;
+                    String nama2;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -224,12 +227,13 @@ public class DisposisiKabid extends AppCompatActivity {
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                name.add(nama);
-                            }
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                 if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");
@@ -263,12 +267,13 @@ public class DisposisiKabid extends AppCompatActivity {
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                name.add(nama);
-                            }
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                 if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");
@@ -375,6 +380,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     final String kunci[] = new String[9999];
                     ArrayList<String> name = new ArrayList<String>();
                     String nama;
+                    String nama2;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -385,12 +391,13 @@ public class DisposisiKabid extends AppCompatActivity {
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                name.add(nama);
-                            }
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                 if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");
@@ -419,17 +426,58 @@ public class DisposisiKabid extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
                         String status = (String) map.get("Status");
-                        if (status.equals("Sudah Diverifikasi")){
+                        if (status.equals("Selesai")){
                             String key = ds.getKey();
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                name.add(nama);
+                                if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
+
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
                             }
+                        }
+                    }
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String status = (String) map.get("Status");
+                        if (status.equals("Ditolak")){
+                            String key = ds.getKey();
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                 if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");
@@ -536,6 +584,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     final String kunci[] = new String[9999];
                     ArrayList<String> name = new ArrayList<String>();
                     String nama;
+                    String nama2;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -546,12 +595,13 @@ public class DisposisiKabid extends AppCompatActivity {
                             for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
                                 String key2 = ab.getKey();
                                 nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                name.add(nama);
-                            }
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
                                 if (nama.equals(mUser)){
+                                    name.clear();
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        String key3 = bc.getKey();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        name.add(nama2);
+                                    }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");

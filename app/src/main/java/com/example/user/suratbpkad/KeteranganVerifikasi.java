@@ -73,7 +73,7 @@ public class KeteranganVerifikasi extends AppCompatActivity {
         selesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mdb.child("Status").setValue("Sudah Diverifikasi");
+                mdb.child("Status").setValue("Selesai");
                 Toast toast = Toast.makeText(getApplicationContext(),"Laporan Telah Diterima", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(KeteranganVerifikasi.this,HomePage.class);
