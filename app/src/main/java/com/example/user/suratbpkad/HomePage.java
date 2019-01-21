@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,6 +62,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     String nomor_selesai;
     String pengirim_selesai;
     String tanggal_terima_selesai;
+    SharedPreferences users;
+    String mUser;
+    SharedPreferences pass;
+    SharedPreferences peran;
+    SharedPreferences nama;
+    String mNama;
+    String mnama;
     int a=0;
     int b=0;
     int c=0;
@@ -86,6 +95,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 }
             }
         });
+
     }
 
     @Override
@@ -98,46 +108,58 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             mdb = mdata.getReference("Surat");
             setSupportActionBar(toolbar);
 
-            mdb.addValueEventListener(new ValueEventListener() {
+            users= getSharedPreferences("user",0);
+            mUser = users.getString("user1","Kosong");
+            nama = getSharedPreferences("nama", 0);
+            mNama = nama.getString("nama1","Kosong");
+
+        mdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()){
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
                             Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                            String key = ds.getKey();
                             status = (String) map.get("Status");
-                            if (status.equals("Baru Diupload")){
-                                a=a+1;
-                                perihal = (String) map.get("Perihal");
-                                nomor_surat = (String) map.get("Nomor Surat");
-                                pengirim = (String) map.get("Pengirim");
-                                tanggal_terima = (String) map.get("Tanggal Terima");
-                            }
-                            if (status.equals("Sedang Direview")){
-                                d=d+1;
-                                perihal_direview = (String) map.get("Perihal");
-                                nomor_direview = (String) map.get("Nomor Surat");
-                                pengirim_direview = (String) map.get("Pengirim");
-                                tanggal_terima_direview = (String) map.get("Tanggal Terima");
-                            }
-                            if (status.equals("Sedang Diproses")){
-                                b=b+1;
-                                perihal_diproses = (String) map.get("Perihal");
-                                nomor_diproses = (String) map.get("Nomor Surat");
-                                pengirim_diproses = (String) map.get("Pengirim");
-                                tanggal_terima_diproses = (String) map.get("Tanggal Terima");
-                            }
-                            if (status.equals("Sedang Diverifikasi")){
-                                c=c+1;
-                                perihal_verif = (String) map.get("Perihal");
-                                nomor_verif = (String) map.get("Nomor Surat");
-                                pengirim_verif = (String) map.get("Pengirim");
-                                tanggal_terima_verif = (String) map.get("Tanggal Terima");
-                            } if (status.equals("Sudah Diverifikasi")){
-                                e=e+1;
-                                perihal_selesai = (String) map.get("Perihal");
-                                nomor_selesai = (String) map.get("Nomor Surat");
-                                pengirim_selesai = (String) map.get("Pengirim");
-                                tanggal_terima_selesai = (String) map.get("Tanggal Terima");
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                mnama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (mnama.equals(mUser)){
+                                    if (status.equals("Baru Diupload")){
+                                        a=a+1;
+                                        perihal = (String) map.get("Perihal");
+                                        nomor_surat = (String) map.get("Nomor Surat");
+                                        pengirim = (String) map.get("Pengirim");
+                                        tanggal_terima = (String) map.get("Tanggal Terima");
+                                    }
+                                    if (status.equals("Sedang Direview")){
+                                        d=d+1;
+                                        perihal_direview = (String) map.get("Perihal");
+                                        nomor_direview = (String) map.get("Nomor Surat");
+                                        pengirim_direview = (String) map.get("Pengirim");
+                                        tanggal_terima_direview = (String) map.get("Tanggal Terima");
+                                    }
+                                    if (status.equals("Sedang Diproses")){
+                                        b=b+1;
+                                        perihal_diproses = (String) map.get("Perihal");
+                                        nomor_diproses = (String) map.get("Nomor Surat");
+                                        pengirim_diproses = (String) map.get("Pengirim");
+                                        tanggal_terima_diproses = (String) map.get("Tanggal Terima");
+                                    }
+                                    if (status.equals("Sedang Diverifikasi")){
+                                        c=c+1;
+                                        perihal_verif = (String) map.get("Perihal");
+                                        nomor_verif = (String) map.get("Nomor Surat");
+                                        pengirim_verif = (String) map.get("Pengirim");
+                                        tanggal_terima_verif = (String) map.get("Tanggal Terima");
+                                    } if (status.equals("Sudah Diverifikasi")){
+                                        e=e+1;
+                                        perihal_selesai = (String) map.get("Perihal");
+                                        nomor_selesai = (String) map.get("Nomor Surat");
+                                        pengirim_selesai = (String) map.get("Pengirim");
+                                        tanggal_terima_selesai = (String) map.get("Tanggal Terima");
+                                    }
+                                }
                             }
                         }
 
@@ -256,6 +278,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+            View header=navigationView.getHeaderView(0);
+            TextView name = (TextView) header.findViewById(R.id.Nama);
+            TextView user = (TextView) header.findViewById(R.id.Username);
+            name.setText(mNama);
+            user.setText(mUser);
+
 
             LinearLayout SuratBaru = (LinearLayout) findViewById(R.id.home_baru);
             SuratBaru.setOnClickListener(new View.OnClickListener(){
@@ -357,6 +385,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(i);
         } else if (id == R.id.ringkasan_surat_kelompok){
 
+        } else if (id == R.id.logout){
+            users.edit().clear().commit();
+            pass.edit().clear().commit();
+            peran.edit().clear().commit();
+            nama.edit().clear().commit();
+            Intent i = new Intent(HomePage.this,Login.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

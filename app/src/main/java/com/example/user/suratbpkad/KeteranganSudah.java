@@ -13,6 +13,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class KeteranganSudah extends AppCompatActivity {
     private FirebaseDatabase mdata;
     DatabaseReference mdb;
@@ -30,12 +33,18 @@ public class KeteranganSudah extends AppCompatActivity {
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> name = new ArrayList<String>();
+                String nama;
+                for (DataSnapshot ab : dataSnapshot.child("Yang Ditugaskan").getChildren()){
+                    String key2 = ab.getKey();
+                    nama = (String) dataSnapshot.child("Yang Ditugaskan").child(key2).getValue();
+                    name.add(nama);
+                }
                 String no_surat = (String) dataSnapshot.child("Nomor Surat").getValue();
                 String tanggal_surat = (String) dataSnapshot.child("Tanggal Surat").getValue();
                 String tanggal_terima = (String) dataSnapshot.child("Tanggal Terima").getValue();
                 String pengirim_surat = (String) dataSnapshot.child("Pengirim").getValue();
                 String perihal_surat = (String) dataSnapshot.child("Perihal").getValue();
-                String pelaksana = (String) dataSnapshot.child("Yang Ditugaskan").getValue();
                 String status = (String) dataSnapshot.child("Status").getValue();
                 String memo = (String) dataSnapshot.child("Memo").getValue();
 
@@ -53,7 +62,7 @@ public class KeteranganSudah extends AppCompatActivity {
                 tanggal_terimaTxt.setText(tanggal_terima);
                 pengirim_suratTxt.setText(pengirim_surat);
                 perihal_suratTxt.setText(perihal_surat);
-                pelaksanaTxt.setText(pelaksana);
+                pelaksanaTxt.setText(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
                 statusTxt.setText(status);
                 memoTxt.setText(memo);
             }

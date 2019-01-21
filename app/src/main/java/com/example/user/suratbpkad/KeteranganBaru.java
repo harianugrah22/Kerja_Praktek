@@ -1,6 +1,7 @@
 package com.example.user.suratbpkad;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,8 @@ public class KeteranganBaru extends AppCompatActivity {
     private FirebaseDatabase mdata;
     DatabaseReference mdb;
     Button mOpenDialogKembalikan;
+    SharedPreferences nama;
+    String mNama;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class KeteranganBaru extends AppCompatActivity {
 
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat").child(Kunci);
+        nama = getSharedPreferences("nama", 0);
+        mNama = nama.getString("nama1","Kosong");
+
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

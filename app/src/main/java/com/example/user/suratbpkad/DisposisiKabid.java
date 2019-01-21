@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +21,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class DisposisiKabid extends AppCompatActivity {
     private FirebaseDatabase mdata;
     ArrayList<Surat> surats = new ArrayList<>();
     DatabaseReference mdb;
+    SharedPreferences users;
+    String mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,42 +82,56 @@ public class DisposisiKabid extends AppCompatActivity {
         surats.clear();
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
+        users= getSharedPreferences("user",0);
+        mUser = users.getString("user1","Kosong");
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     int i =0;
-                    final String kunci[] = new String[9999];
-                    surats.clear();
+                        final String kunci[] = new String[9999];
+                        ArrayList<String> name = new ArrayList<String>();
+                        String nama;
+                        surats.clear();
 
-                    for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
-                        String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                            String status = (String) map.get("Status");
+                            if (status.equals("Baru Diupload")){
+                                String key = ds.getKey();
+                                for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    String key2 = ab.getKey();
+                                    nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                    name.add(nama);
+                                }
+                                for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    String key2 = ab.getKey();
+                                    nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                    if (nama.equals(mUser)){
+                                        kunci[i]=key;
+                                        String perihal = (String) map.get("Perihal");
+                                        String nomor_surat = (String) map.get("Nomor Surat");
+                                        String pengirim = (String) map.get("Pengirim");
+                                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                                        String tanggal_terima = (String) map.get("Tanggal Terima");
+                                        String sifat = (String) map.get("Sifat");
 
-                        if (status.equals("Baru Diupload")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
-                        }
+                                        Surat surat = new Surat();
+                                        i=i+1;
+                                        surat.setKey(key);
+                                        surat.setPenomoran(Integer.toString(i));
+                                        surat.setPerihal_surat(perihal);
+                                        surat.setNomor_surat(nomor_surat);
+                                        surat.setPengirim_surat(pengirim);
+                                        surat.setTanggal_surat(tanggal_surat);
+                                        surat.setTanggal_terima(tanggal_terima);
+                                        surat.setStatus_surat(status);
+                                        surat.setSifat_surat(sifat);
+                                        surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                        surats.add(surat);
+                                    }
+                                }
+                            }
                     }
                     if (i==0){
                         Surat surat = new Surat();
@@ -186,70 +204,94 @@ public class DisposisiKabid extends AppCompatActivity {
     public void Tampilan_Diproses(){
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
+        users= getSharedPreferences("user",0);
+        mUser = users.getString("user1","Kosong");
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     int i =0;
                     final String kunci[] = new String[9999];
+                    ArrayList<String> name = new ArrayList<String>();
+                    String nama;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
                         String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+                        if (status.equals("Sedang Direview")){
+                            String key = ds.getKey();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                name.add(nama);
+                            }
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (nama.equals(mUser)){
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
 
-                        if (status.equals("Sedang Diproses")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
+                            }
                         }
                     }
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
                         String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
+                        if (status.equals("Sedang Diproses")){
+                            String key = ds.getKey();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                name.add(nama);
+                            }
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (nama.equals(mUser)){
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
 
-                        if (status.equals("Sedang Direview")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
+                            }
                         }
                     }
                     if (i==0){
@@ -323,70 +365,94 @@ public class DisposisiKabid extends AppCompatActivity {
     public void Tampilan_Selesai(){
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
+        users= getSharedPreferences("user",0);
+        mUser = users.getString("user1","Kosong");
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     int i =0;
                     final String kunci[] = new String[9999];
+                    ArrayList<String> name = new ArrayList<String>();
+                    String nama;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
                         String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
-
                         if (status.equals("Sedang Diverifikasi")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
+                            String key = ds.getKey();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                name.add(nama);
+                            }
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (nama.equals(mUser)){
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
+
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
+                            }
                         }
                     }
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
                         String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
-
                         if (status.equals("Sudah Diverifikasi")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
+                            String key = ds.getKey();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                name.add(nama);
+                            }
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (nama.equals(mUser)){
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
+
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
+                            }
                         }
                     }
                     if (i==0){
@@ -460,41 +526,55 @@ public class DisposisiKabid extends AppCompatActivity {
     public void Tampilan_Verifikasi(){
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
+        users= getSharedPreferences("user",0);
+        mUser = users.getString("user1","Kosong");
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     int i =0;
                     final String kunci[] = new String[9999];
+                    ArrayList<String> name = new ArrayList<String>();
+                    String nama;
                     surats.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String key = ds.getKey();
-                        String perihal = (String) map.get("Perihal");
-                        String nomor_surat = (String) map.get("Nomor Surat");
-                        String pengirim = (String) map.get("Pengirim");
-                        String tanggal_surat = (String) map.get("Tanggal Surat");
-                        String tanggal_terima = (String) map.get("Tanggal Terima");
                         String status = (String) map.get("Status");
-                        String sifat = (String) map.get("Sifat");
-                        String yang_ditugaskan = (String) map.get("Yang Ditugaskan");
-
                         if (status.equals("Sedang Diverifikasi")){
-                            kunci[i]=key;
-                            Surat surat = new Surat();
-                            i=i+1;
-                            surat.setKey(key);
-                            surat.setPenomoran(Integer.toString(i));
-                            surat.setPerihal_surat(perihal);
-                            surat.setNomor_surat(nomor_surat);
-                            surat.setPengirim_surat(pengirim);
-                            surat.setTanggal_surat(tanggal_surat);
-                            surat.setTanggal_terima(tanggal_terima);
-                            surat.setStatus_surat(status);
-                            surat.setSifat_surat(sifat);
-                            surat.setYang_ditugaskan(yang_ditugaskan);
-                            surats.add(surat);
+                            String key = ds.getKey();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                name.add(nama);
+                            }
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                String key2 = ab.getKey();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                if (nama.equals(mUser)){
+                                    kunci[i]=key;
+                                    String perihal = (String) map.get("Perihal");
+                                    String nomor_surat = (String) map.get("Nomor Surat");
+                                    String pengirim = (String) map.get("Pengirim");
+                                    String tanggal_surat = (String) map.get("Tanggal Surat");
+                                    String tanggal_terima = (String) map.get("Tanggal Terima");
+                                    String sifat = (String) map.get("Sifat");
+
+                                    Surat surat = new Surat();
+                                    i=i+1;
+                                    surat.setKey(key);
+                                    surat.setPenomoran(Integer.toString(i));
+                                    surat.setPerihal_surat(perihal);
+                                    surat.setNomor_surat(nomor_surat);
+                                    surat.setPengirim_surat(pengirim);
+                                    surat.setTanggal_surat(tanggal_surat);
+                                    surat.setTanggal_terima(tanggal_terima);
+                                    surat.setStatus_surat(status);
+                                    surat.setSifat_surat(sifat);
+                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                    surats.add(surat);
+                                }
+                            }
                         }
                     }
                     if (i==0){
