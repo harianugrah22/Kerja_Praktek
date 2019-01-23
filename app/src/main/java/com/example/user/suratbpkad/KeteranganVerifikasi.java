@@ -1,6 +1,7 @@
 package com.example.user.suratbpkad;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,9 @@ import java.util.Arrays;
 public class KeteranganVerifikasi extends AppCompatActivity {
     private FirebaseDatabase mdata;
     DatabaseReference mdb;
+    SharedPreferences peran;
+    String mPeran;
+    String sPeran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +34,26 @@ public class KeteranganVerifikasi extends AppCompatActivity {
 
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat").child(Kunci);
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        }
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> name = new ArrayList<String>();
                 String nama;
-                for (DataSnapshot ab : dataSnapshot.child("Yang Ditugaskan").getChildren()){
+                for (DataSnapshot ab : dataSnapshot.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                     String key2 = ab.getKey();
-                    nama = (String) dataSnapshot.child("Yang Ditugaskan").child(key2).getValue();
+                    nama = (String) dataSnapshot.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                     name.add(nama);
                 }
                 String no_surat = (String) dataSnapshot.child("Nomor Surat").getValue();
@@ -73,7 +89,7 @@ public class KeteranganVerifikasi extends AppCompatActivity {
         selesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mdb.child("Status").setValue("Selesai");
+                mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Selesai");
                 Toast toast = Toast.makeText(getApplicationContext(),"Laporan Telah Diterima", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(KeteranganVerifikasi.this,HomePage.class);

@@ -24,6 +24,9 @@ public class KeteranganBaru extends AppCompatActivity {
     Button mOpenDialogKembalikan;
     SharedPreferences nama;
     String mNama;
+    SharedPreferences peran;
+    String mPeran;
+    String sPeran;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,18 @@ public class KeteranganBaru extends AppCompatActivity {
         mdb = mdata.getReference("Surat").child(Kunci);
         nama = getSharedPreferences("nama", 0);
         mNama = nama.getString("nama1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        }
 
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -81,7 +96,7 @@ public class KeteranganBaru extends AppCompatActivity {
                 mdb.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        mdb.child("Status").setValue("Sedang Diproses");
+                        mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Sedang Diproses");
                         Toast toast = Toast.makeText(getApplicationContext(),"Status Surat Berhasil Diubah", Toast.LENGTH_SHORT);
                         toast.show();
                         Intent i = new Intent(KeteranganBaru.this,HomePage.class);

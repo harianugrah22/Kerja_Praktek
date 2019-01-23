@@ -40,6 +40,7 @@ public class UploadSuratBaru extends AppCompatActivity {
     String kesediaan;
     DatabaseReference mAkun;
     String kabid;
+    String muploader;
     String peran;
     String nomor_surat;
     String pengirim;
@@ -72,21 +73,36 @@ public class UploadSuratBaru extends AppCompatActivity {
         mUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mNomorSurat.getText().length() == 0 || mTanggalSurat.getText().length() == 0 || mTanggalTerima.getText().length() == 0
-                        || mPengirim.getText().length() == 0 || mPerihal.getText().length() == 0)
-                {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Terdapat Bagian yang Belum Diisi";
-                    int duration = Toast.LENGTH_SHORT;
+                new InternetCheck(new InternetCheck.Consumer() {
+                    @Override
+                    public void accept(Boolean internet) {
+                        if (internet) {
+                            if (mNomorSurat.getText().length() == 0 || mTanggalSurat.getText().length() == 0 || mTanggalTerima.getText().length() == 0
+                                    || mPengirim.getText().length() == 0 || mPerihal.getText().length() == 0)
+                            {
+                                Context context = getApplicationContext();
+                                CharSequence text = "Terdapat Bagian yang Belum Diisi";
+                                int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-                else
-                {
-                    CekKesediaan();
-                }
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                            }
+                            else
+                            {
+                                CekKesediaan();
+                            }
+                        } else {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Tidak Ada Koneksi";
+                            int duration = Toast.LENGTH_LONG;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }
+                });
             }
         });
 
@@ -127,6 +143,8 @@ public class UploadSuratBaru extends AppCompatActivity {
                                    peran = (String) map1.get("Peran");
                                    if (peran.equals("Kabid")){
                                        kabid = (String) map1.get("Username");
+                                   } else if (peran.equals("Uploader")){
+                                       muploader = (String) map1.get("Username");
                                    }
                                }
                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -145,16 +163,32 @@ public class UploadSuratBaru extends AppCompatActivity {
 
                                if (kesediaan.equals("Yes")){
                                    myRef = database.getReference("Surat").push();
-                                   myRef.child("Status").setValue("Baru Diupload");
                                    myRef.child("Nomor Surat").setValue(mNomorSurat.getText().toString());
                                    myRef.child("Tanggal Surat").setValue(mTanggalSurat.getText().toString());
                                    myRef.child("Tanggal Terima").setValue(mTanggalTerima.getText().toString());
                                    myRef.child("Pengirim").setValue(mPengirim.getText().toString());
                                    myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                    myRef.child("Sifat").setValue("Belum Ada");
+                                   myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
+                                   myRef.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Baru Diupload");
                                    HashMap<String, String> names = new HashMap <String, String>();
                                    names.put("0",kabid);
-                                   myRef.child("Yang Ditugaskan").setValue(names);
+                                   HashMap<String, String> subbid1 = new HashMap <String, String>();
+                                   subbid1.put("0","Belum Ada");
+                                   HashMap<String, String> subbid2 = new HashMap <String, String>();
+                                   subbid2.put("0","Belum Ada");
+                                   HashMap<String, String> subbid3 = new HashMap <String, String>();
+                                   subbid3.put("0","Belum Ada");
+                                   HashMap<String, String> uploader = new HashMap <String, String>();
+                                   uploader.put("0",muploader);
+                                   myRef.child("Yang Ditugaskan").child("Kabid").child("Pelaksana").setValue(names);
+                                   myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").setValue(subbid1);
+                                   myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").setValue(subbid2);
+                                   myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").setValue(subbid3);
+                                   myRef.child("Yang Ditugaskan").child("Uploader").child("Pelaksana").setValue(uploader);
 
                                    if (mMemo.getText().length() == 0)
                                    {
@@ -186,20 +220,38 @@ public class UploadSuratBaru extends AppCompatActivity {
                                    peran = (String) map1.get("Peran");
                                    if (peran.equals("Kabid")){
                                        kabid = (String) map1.get("Username");
+                                   } else if (peran.equals("Uploader")){
+                                       muploader = (String) map1.get("Username");
                                    }
                                }
 
                                myRef = database.getReference("Surat").push();
-                               myRef.child("Status").setValue("Baru Diupload");
                                myRef.child("Nomor Surat").setValue(mNomorSurat.getText().toString());
                                myRef.child("Tanggal Surat").setValue(mTanggalSurat.getText().toString());
                                myRef.child("Tanggal Terima").setValue(mTanggalTerima.getText().toString());
                                myRef.child("Pengirim").setValue(mPengirim.getText().toString());
                                myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                myRef.child("Sifat").setValue("Belum Ada");
+                               myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
+                               myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
+                               myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
+                               myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
+                               myRef.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Baru Diupload");
                                HashMap<String, String> names = new HashMap <String, String>();
                                names.put("0",kabid);
-                               myRef.child("Yang Ditugaskan").setValue(names);
+                               HashMap<String, String> subbid1 = new HashMap <String, String>();
+                               subbid1.put("0","Belum Ada");
+                               HashMap<String, String> subbid2 = new HashMap <String, String>();
+                               subbid2.put("0","Belum Ada");
+                               HashMap<String, String> subbid3 = new HashMap <String, String>();
+                               subbid3.put("0","Belum Ada");
+                               HashMap<String, String> uploader = new HashMap <String, String>();
+                               uploader.put("0",muploader);
+                               myRef.child("Yang Ditugaskan").child("Kabid").child("Pelaksana").setValue(names);
+                               myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").setValue(subbid1);
+                               myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").setValue(subbid2);
+                               myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").setValue(subbid3);
+                               myRef.child("Yang Ditugaskan").child("Uploader").child("Pelaksana").setValue(uploader);
 
                                if (mMemo.getText().length() == 0)
                                {

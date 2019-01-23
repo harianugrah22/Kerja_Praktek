@@ -70,6 +70,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     String mUser;
     SharedPreferences pass;
     SharedPreferences peran;
+    String mPeran;
+    String sPeran;
     SharedPreferences nama;
     String mNama;
     String mnama;
@@ -89,7 +91,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 } else {
                     Context context = getApplicationContext();
                     CharSequence text = "Tidak Ada Koneksi";
-                    int duration = Toast.LENGTH_SHORT;
+                    int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -106,18 +108,30 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_home_page);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_home_page);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-            mdata = FirebaseDatabase.getInstance();
-            mdb = mdata.getReference("Surat");
-            setSupportActionBar(toolbar);
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Surat");
+        setSupportActionBar(toolbar);
+        users= getSharedPreferences("user",0);
+        mUser = users.getString("user1","Kosong");
+        nama = getSharedPreferences("nama", 0);
+        mNama = nama.getString("nama1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
 
-            users= getSharedPreferences("user",0);
-            mUser = users.getString("user1","Kosong");
-            nama = getSharedPreferences("nama", 0);
-            mNama = nama.getString("nama1","Kosong");
-
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")){
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")){
+            sPeran = "Subbid 3";
+        } else{
+            sPeran = "Uploader";
+        }
         mdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,10 +139,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
                             Map<String, Object> map = (Map<String, Object>) ds.getValue();
                             String key = ds.getKey();
-                            status = (String) map.get("Status");
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                mnama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                mnama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (mnama.equals(mUser)){
                                     if (status.equals("Baru Diupload")){
                                         a=a+1;
@@ -220,7 +234,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                             pengirim_diprosesTxt.setText("Belum Ada Surat");
                             tanggal_terima_diprosesTxt.setText("Belum Ada Surat");
                         }
-
                         if(c!=0) {
                             perihal_verifTxt.setText(perihal_verif);
                             nomor_verifTxt.setText(nomor_verif);
@@ -279,6 +292,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+
+        if (mPeran.equals("Uploader")){
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -287,6 +302,14 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                     startActivity(i);
                 }
             });
+        } else{
+            View b = findViewById(R.id.fab);
+            b.setVisibility(View.GONE);
+            hideItemUpload();
+            if (mPeran.equals("Staff Subbid 1") || mPeran.equals("Staff Subbid 2") || mPeran.equals("Staff Subbid 3")){
+                hideItem();
+            }
+        }
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -302,34 +325,48 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             name.setText(mNama);
             user.setText(mUser);
 
+                LinearLayout SuratBaru = (LinearLayout) findViewById(R.id.home_baru);
+                SuratBaru.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                        i.putExtra("Konteks", "Baru");
+                        startActivity(i);
+                    }
+                });
+                LinearLayout SuratBelumDiproses = (LinearLayout) findViewById(R.id.home_sedang_diprosses);
+                SuratBelumDiproses.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                        i.putExtra("Konteks", "Diproses");
+                        startActivity(i);
+                    }
+                });
+                LinearLayout SuratSedangDiproses = (LinearLayout) findViewById(R.id.home_verifikasi);
+                SuratSedangDiproses.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(HomePage.this, DisposisiKabid.class);
+                        i.putExtra("Konteks", "Selesai");
+                        startActivity(i);
+                    }
+                });
 
-            LinearLayout SuratBaru = (LinearLayout) findViewById(R.id.home_baru);
-            SuratBaru.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                    i.putExtra("Konteks", "Baru");
-                    startActivity(i);
-                }
-            });
-            LinearLayout SuratBelumDiproses = (LinearLayout) findViewById(R.id.home_sedang_diprosses);
-            SuratBelumDiproses.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                    i.putExtra("Konteks", "Diproses");
-                    startActivity(i);
-                }
-            });
-            LinearLayout SuratSedangDiproses = (LinearLayout) findViewById(R.id.home_verifikasi);
-            SuratSedangDiproses.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(HomePage.this, DisposisiKabid.class);
-                    i.putExtra("Konteks", "Selesai");
-                    startActivity(i);
-                }
-            });
+    }
+
+    private void hideItemUpload()
+    {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.tambah).setVisible(false);
+    }
+
+    private void hideItem()
+    {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.kelompok).setVisible(false);
     }
 
     @Override

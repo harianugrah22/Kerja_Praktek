@@ -30,6 +30,9 @@ public class DisposisiKabid extends AppCompatActivity {
     DatabaseReference mdb;
     SharedPreferences users;
     String mUser;
+    SharedPreferences peran;
+    String mPeran;
+    String sPeran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,20 @@ public class DisposisiKabid extends AppCompatActivity {
         mdb = mdata.getReference("Surat");
         users= getSharedPreferences("user",0);
         mUser = users.getString("user1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        } else {
+            sPeran = "Uploader";
+        }
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,17 +114,17 @@ public class DisposisiKabid extends AppCompatActivity {
 
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
                             Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                            String status = (String) map.get("Status");
+                            String key = ds.getKey();
+                            String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                             if (status.equals("Baru Diupload")){
-                                String key = ds.getKey();
-                                for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                     String key2 = ab.getKey();
-                                    nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                    nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                     if (nama.equals(mUser)){
                                         name.clear();
-                                        for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                        for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                             String key3 = bc.getKey();
-                                            nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                            nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                             name.add(nama2);
                                         }
                                         kunci[i]=key;
@@ -208,6 +225,20 @@ public class DisposisiKabid extends AppCompatActivity {
         mdb = mdata.getReference("Surat");
         users= getSharedPreferences("user",0);
         mUser = users.getString("user1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        } else {
+            sPeran = "Uploader";
+        }
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -221,17 +252,17 @@ public class DisposisiKabid extends AppCompatActivity {
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Sedang Direview")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (nama.equals(mUser)){
                                     name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                         String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                         name.add(nama2);
                                     }
                                     kunci[i]=key;
@@ -261,17 +292,17 @@ public class DisposisiKabid extends AppCompatActivity {
                     }
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Sedang Diproses")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (nama.equals(mUser)){
                                     name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                         String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                         name.add(nama2);
                                     }
                                     kunci[i]=key;
@@ -372,6 +403,20 @@ public class DisposisiKabid extends AppCompatActivity {
         mdb = mdata.getReference("Surat");
         users= getSharedPreferences("user",0);
         mUser = users.getString("user1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        } else {
+            sPeran = "Uploader";
+        }
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -385,17 +430,17 @@ public class DisposisiKabid extends AppCompatActivity {
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Sedang Diverifikasi")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (nama.equals(mUser)){
                                     name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                         String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                         name.add(nama2);
                                     }
                                     kunci[i]=key;
@@ -425,17 +470,17 @@ public class DisposisiKabid extends AppCompatActivity {
                     }
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Selesai")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (nama.equals(mUser)){
                                     name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                         String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                         name.add(nama2);
                                     }
                                     kunci[i]=key;
@@ -465,17 +510,17 @@ public class DisposisiKabid extends AppCompatActivity {
                     }
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Ditolak")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                 String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
+                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (nama.equals(mUser)){
                                     name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
+                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
                                         String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
+                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
                                         name.add(nama2);
                                     }
                                     kunci[i]=key;
@@ -576,6 +621,18 @@ public class DisposisiKabid extends AppCompatActivity {
         mdb = mdata.getReference("Surat");
         users= getSharedPreferences("user",0);
         mUser = users.getString("user1","Kosong");
+        peran = getSharedPreferences("peran", 0);
+        mPeran = peran.getString("peran1","Kosong");
+
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3")) {
+            sPeran = "Subbid 3";
+        }
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -589,41 +646,36 @@ public class DisposisiKabid extends AppCompatActivity {
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
                         Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                        String status = (String) map.get("Status");
+                        String key = ds.getKey();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                         if (status.equals("Sedang Diverifikasi")){
-                            String key = ds.getKey();
-                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                String key2 = ab.getKey();
-                                nama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key2).getValue();
-                                if (nama.equals(mUser)){
-                                    name.clear();
-                                    for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").getChildren()){
-                                        String key3 = bc.getKey();
-                                        nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(key3).getValue();
-                                        name.add(nama2);
-                                    }
-                                    kunci[i]=key;
-                                    String perihal = (String) map.get("Perihal");
-                                    String nomor_surat = (String) map.get("Nomor Surat");
-                                    String pengirim = (String) map.get("Pengirim");
-                                    String tanggal_surat = (String) map.get("Tanggal Surat");
-                                    String tanggal_terima = (String) map.get("Tanggal Terima");
-                                    String sifat = (String) map.get("Sifat");
-
-                                    Surat surat = new Surat();
-                                    i=i+1;
-                                    surat.setKey(key);
-                                    surat.setPenomoran(Integer.toString(i));
-                                    surat.setPerihal_surat(perihal);
-                                    surat.setNomor_surat(nomor_surat);
-                                    surat.setPengirim_surat(pengirim);
-                                    surat.setTanggal_surat(tanggal_surat);
-                                    surat.setTanggal_terima(tanggal_terima);
-                                    surat.setStatus_surat(status);
-                                    surat.setSifat_surat(sifat);
-                                    surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
-                                    surats.add(surat);
+                            for (DataSnapshot ab : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
+                                for (DataSnapshot bc : dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").getChildren()){
+                                    String key3 = bc.getKey();
+                                    nama2 = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key3).getValue();
+                                    name.add(nama2);
                                 }
+                                kunci[i]=key;
+                                String perihal = (String) map.get("Perihal");
+                                String nomor_surat = (String) map.get("Nomor Surat");
+                                String pengirim = (String) map.get("Pengirim");
+                                String tanggal_surat = (String) map.get("Tanggal Surat");
+                                String tanggal_terima = (String) map.get("Tanggal Terima");
+                                String sifat = (String) map.get("Sifat");
+
+                                Surat surat = new Surat();
+                                i=i+1;
+                                surat.setKey(key);
+                                surat.setPenomoran(Integer.toString(i));
+                                surat.setPerihal_surat(perihal);
+                                surat.setNomor_surat(nomor_surat);
+                                surat.setPengirim_surat(pengirim);
+                                surat.setTanggal_surat(tanggal_surat);
+                                surat.setTanggal_terima(tanggal_terima);
+                                surat.setStatus_surat(status);
+                                surat.setSifat_surat(sifat);
+                                surat.setYang_ditugaskan(Arrays.toString(new ArrayList[]{name}).replaceAll("\\[|\\]", ""));
+                                surats.add(surat);
                             }
                         }
                     }

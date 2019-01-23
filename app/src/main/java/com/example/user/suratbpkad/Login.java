@@ -135,7 +135,7 @@ public class Login extends AppCompatActivity {
                 } else {
                     Context context = getApplicationContext();
                     CharSequence text = "Tidak Ada Koneksi";
-                    int duration = Toast.LENGTH_SHORT;
+                    int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -234,5 +234,10 @@ public class Login extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

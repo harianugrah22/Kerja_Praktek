@@ -23,6 +23,7 @@ public class Kembalikan extends AppCompatActivity {
 
     SharedPreferences peran;
     String mPeran;
+    String sPeran;
     String uploader;
     String pran;
     EditText Alasan;
@@ -40,6 +41,15 @@ public class Kembalikan extends AppCompatActivity {
         peran = getSharedPreferences("peran", 0);
         mPeran = peran.getString("peran1","Kosong");
 
+        if (mPeran.equals("Kabid")){
+            sPeran = "Kabid";
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+            sPeran = "Subbid 1";
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+            sPeran = "Subbid 2";
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+            sPeran = "Subbid 3";
+        }
         Button mKembalikan = (Button) findViewById(R.id.kembalikan);
         mKembalikan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +73,8 @@ public class Kembalikan extends AppCompatActivity {
                                     if (pran.equals("Uploader")){
                                         i= i+1;
                                         uploader = (String) map1.get("Username");
-                                        mdb.child("Yang Ditugaskan").child(Integer.toString(i)).setValue(uploader);
-                                        mdb.child("Status").setValue("Ditolak");
+                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
+                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Ditolak");
                                         mdb.child("Memo").setValue(mAlasan);
                                         if (i==1){
                                             Toast tst = Toast.makeText(getApplicationContext(),"Berhasil Dikembalikan", Toast.LENGTH_SHORT);
@@ -94,8 +104,8 @@ public class Kembalikan extends AppCompatActivity {
                                     pran = (String) map1.get("Peran");
                                     if (pran.equals("Kabid")){
                                         uploader = (String) map1.get("Username");
-                                        mdb.child("Yang Ditugaskan").child(Integer.toString(i)).setValue(uploader);
-                                        mdb.child("Status").setValue("Ditolak");
+                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
+                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Ditolak");
                                         mdb.child("Memo").setValue(mAlasan);
                                         Toast tst = Toast.makeText(getApplicationContext(),"Berhasil Dikembalikan", Toast.LENGTH_SHORT);
                                         tst.show();

@@ -25,7 +25,8 @@
                 android:title="Surat Selesai" />
         </menu>
     </item>
-    <item android:title="Surat Kelompok">
+    <item android:title="Surat Kelompok"
+        android:id="@+id/kelompok">
         <menu>
             <item
                 android:id="@+id/verifikasi_surat"
