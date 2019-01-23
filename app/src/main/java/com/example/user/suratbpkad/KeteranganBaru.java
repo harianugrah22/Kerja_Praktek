@@ -70,6 +70,7 @@ public class KeteranganBaru extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(KeteranganBaru.this, Teruskan.class);
+                i.putExtra("Kunci",Kunci);
                 startActivity(i);
             }
         });

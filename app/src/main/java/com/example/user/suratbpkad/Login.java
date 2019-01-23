@@ -87,7 +87,6 @@ public class Login extends AppCompatActivity {
         mUsernameView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-
         users = getSharedPreferences("user",0);
         mUser = users.getString("user1","Kosong");
         pass = getSharedPreferences("password", 0);
@@ -103,7 +102,7 @@ public class Login extends AppCompatActivity {
                 if (internet) {
                     FirebaseDatabase mdata = FirebaseDatabase.getInstance();
                     DatabaseReference mdb = mdata.getReference("Users");
-                    mdb.addValueEventListener(new ValueEventListener() {
+                    mdb.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
@@ -131,7 +130,6 @@ public class Login extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
                         }
                     });
                 } else {

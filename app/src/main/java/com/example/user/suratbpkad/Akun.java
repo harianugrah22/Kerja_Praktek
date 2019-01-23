@@ -8,6 +8,11 @@ public class Akun {
     private boolean isSelected;
     private String namaAd;
     private String peranAd;
+    private String userAd;
+
+    public String getUserAd() { return userAd; }
+
+    public void setUserAd(String userAd) { this.userAd = userAd; }
 
     public String getNamaAd() {
         return namaAd;

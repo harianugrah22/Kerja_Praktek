@@ -83,7 +83,6 @@ public class AkunAdapter extends BaseAdapter {
                 View tempview = (View) holder.checkBox.getTag(R.integer.btnplusview);
                 TextView tv = (TextView) tempview.findViewById(R.id.peran);
                 Integer pos = (Integer)  holder.checkBox.getTag();
-                Toast.makeText(context, "Checkbox "+pos+" clicked!", Toast.LENGTH_SHORT).show();
 
                 if(peranArrayList.get(pos).getSelected()){
                     peranArrayList.get(pos).setSelected(false);

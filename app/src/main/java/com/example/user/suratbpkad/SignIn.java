@@ -133,7 +133,6 @@ public class SignIn extends AppCompatActivity implements AdapterView.OnItemSelec
                                         mData.child("Username").setValue(mUserName.getText().toString());
                                         mData.child("Password").setValue(mPassword.getText().toString());
                                         mData.child("Peran").setValue(spin.getSelectedItem().toString());
-                                        mData.child("Surat Ditugaskan").setValue("Belum Ada");
 
                                         Context context = getApplicationContext();
                                         CharSequence text = "Akun Berhasil Ditambahkan";
@@ -158,7 +157,6 @@ public class SignIn extends AppCompatActivity implements AdapterView.OnItemSelec
                                     mData.child("Username").setValue(mUserName.getText().toString());
                                     mData.child("Password").setValue(mPassword.getText().toString());
                                     mData.child("Peran").setValue(spin.getSelectedItem().toString());
-                                    mData.child("Surat Ditugaskan").setValue("Belum Ada");
 
                                     Context context = getApplicationContext();
                                     CharSequence text = "Akun Berhasil Ditambahkan";

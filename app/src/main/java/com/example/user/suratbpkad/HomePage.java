@@ -62,6 +62,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     String nomor_selesai;
     String pengirim_selesai;
     String tanggal_terima_selesai;
+    String perihal_ditolak;
+    String nomor_ditolak;
+    String pengirim_ditolak;
+    String tanggal_terima_ditolak;
     SharedPreferences users;
     String mUser;
     SharedPreferences pass;
@@ -74,6 +78,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     int c=0;
     int d=0;
     int e=0;
+    int f=0;
 
     protected void onStart(){
         super.onStart();
@@ -152,12 +157,20 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                                         nomor_verif = (String) map.get("Nomor Surat");
                                         pengirim_verif = (String) map.get("Pengirim");
                                         tanggal_terima_verif = (String) map.get("Tanggal Terima");
-                                    } if (status.equals("Sudah Diverifikasi")){
+                                    }
+                                    if (status.equals("Selesai")){
                                         e=e+1;
                                         perihal_selesai = (String) map.get("Perihal");
                                         nomor_selesai = (String) map.get("Nomor Surat");
                                         pengirim_selesai = (String) map.get("Pengirim");
                                         tanggal_terima_selesai = (String) map.get("Tanggal Terima");
+                                    }
+                                    if (status.equals("Ditolak")) {
+                                        f = f + 1;
+                                        perihal_ditolak = (String) map.get("Perihal");
+                                        nomor_ditolak = (String) map.get("Nomor Surat");
+                                        pengirim_ditolak = (String) map.get("Pengirim");
+                                        tanggal_terima_ditolak = (String) map.get("Tanggal Terima");
                                     }
                                 }
                             }
@@ -218,6 +231,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                             nomor_verifTxt.setText(nomor_selesai);
                             pengirim_verifTxt.setText(pengirim_selesai);
                             tanggal_terima_verifTxt.setText(tanggal_terima_selesai);
+                        } else if(f!=0){
+                            perihal_verifTxt.setText(perihal_ditolak);
+                            nomor_verifTxt.setText(nomor_ditolak);
+                            pengirim_verifTxt.setText(pengirim_ditolak);
+                            tanggal_terima_verifTxt.setText(tanggal_terima_ditolak);
                         } else {
                             perihal_verifTxt.setText("Belum Ada Surat");
                             nomor_verifTxt.setText("Belum Ada Surat");
