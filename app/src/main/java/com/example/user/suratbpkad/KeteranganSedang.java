@@ -46,6 +46,7 @@ public class KeteranganSedang extends AppCompatActivity {
         } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
             sPeran = "Subbid 3";
         }
+
         mdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

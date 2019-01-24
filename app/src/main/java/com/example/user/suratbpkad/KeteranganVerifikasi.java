@@ -90,6 +90,7 @@ public class KeteranganVerifikasi extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Selesai");
+                mdb.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Selesai");
                 Toast toast = Toast.makeText(getApplicationContext(),"Laporan Telah Diterima", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(KeteranganVerifikasi.this,HomePage.class);

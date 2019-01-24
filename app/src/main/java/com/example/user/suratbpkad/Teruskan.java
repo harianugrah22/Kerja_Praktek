@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,10 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.time.chrono.ThaiBuddhistEra;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 
 public class Teruskan extends AppCompatActivity {
@@ -33,6 +27,7 @@ public class Teruskan extends AppCompatActivity {
     private ListView lv;
     private ArrayList<Akun> akunArrayList = new ArrayList<>();
     String Kunci;
+    String Sifat;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
 
@@ -46,6 +41,7 @@ public class Teruskan extends AppCompatActivity {
 
         Intent intent = getIntent();
         Kunci = intent.getStringExtra("Kunci");
+        Sifat = intent.getStringExtra("Sifat");
 
         if (mPeran.equals("Kabid")){
             Tampilan_Kabid();
@@ -100,21 +96,22 @@ public class Teruskan extends AppCompatActivity {
                             int d = 0;
                             for (int a = 0; a < AkunAdapter.peranArrayList.size(); a++){
                                 if(AkunAdapter.peranArrayList.get(a).getSelected()) {
-                                    myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
+                                    myRef = database.getReference("Surat").child(Kunci);
                                     if (AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 1")){
-                                        myRef.child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Subbid 1").child("Status").setValue("Baru Diupload");
+                                        myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
                                         b=b+1;
                                     } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 2")){
-                                        myRef.child("Subbid 2").child("Pelaksana").child(Integer.toString(c)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Subbid 2").child("Status").setValue("Baru Diupload");
+                                        myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").child(Integer.toString(c)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
                                         c=c+1;
                                     } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 3")){
-                                        myRef.child("Subbid 3").child("Pelaksana").child(Integer.toString(d)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Subbid 3").child("Status").setValue("Baru Diupload");
+                                        myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").child(Integer.toString(d)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
                                         d=d+1;
                                     }
-                                    myRef.child(sPeran).child("Status").setValue("Diteruskan");
+                                    myRef.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Diteruskan");
+                                    myRef.child("Sifat").setValue(Sifat);
                                 }
                             }
                             if (b==0){
