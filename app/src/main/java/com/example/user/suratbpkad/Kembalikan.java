@@ -41,11 +41,11 @@ public class Kembalikan extends AppCompatActivity {
 
         if (mPeran.equals("Kabid")){
             sPeran = "Kabid";
-        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
+        } else if (mPeran.equals("Kasubbid 1")){
             sPeran = "Subbid 1";
-        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
+        } else if (mPeran.equals("Kasubbid 2")) {
             sPeran = "Subbid 2";
-        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
+        } else if (mPeran.equals("Kasubbid 3")) {
             sPeran = "Subbid 3";
         }
         Button mKembalikan = (Button) findViewById(R.id.kembalikan);
@@ -71,7 +71,8 @@ public class Kembalikan extends AppCompatActivity {
                                     if (pran.equals("Uploader")){
                                         i= i+1;
                                         uploader = (String) map1.get("Username");
-                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
+                                        mdb.child("Yang Ditugaskan").child("Uploader").child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
+                                        mdb.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Ditolak");
                                         mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Ditolak");
                                         mdb.child("Memo").setValue(mAlasan);
                                         if (i==1){
@@ -90,7 +91,7 @@ public class Kembalikan extends AppCompatActivity {
                         }
                     });
                 } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Kasubbid 2") || mPeran.equals("Kasubbid 3")){
-                    FirebaseDatabase mdata = FirebaseDatabase.getInstance();
+                    final FirebaseDatabase mdata = FirebaseDatabase.getInstance();
                     final DatabaseReference mdb = mdata.getReference("Surat").child(Kunci);
                     DatabaseReference mak = mdata.getReference("Users");
                     mak.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -102,8 +103,10 @@ public class Kembalikan extends AppCompatActivity {
                                     pran = (String) map1.get("Peran");
                                     if (pran.equals("Kabid")){
                                         uploader = (String) map1.get("Username");
-                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
-                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Ditolak");
+                                        mdb.child("Sifat").setValue("Belum Ada");
+                                        mdb.child("Yang Ditugaskan").child("Kabid").child("Pelaksana").child(Integer.toString(i)).setValue(uploader);
+                                        mdb.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Dikembalikan");
+                                        mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Dikembalikan");
                                         mdb.child("Memo").setValue(mAlasan);
                                         Toast tst = Toast.makeText(getApplicationContext(),"Berhasil Dikembalikan", Toast.LENGTH_SHORT);
                                         tst.show();

@@ -47,6 +47,10 @@ public class Teruskan extends AppCompatActivity {
             Tampilan_Kabid();
         } else if (mPeran.equals("Kasubbid 1")){
             Tampilan_Subbid1();
+        } else if (mPeran.equals("Kasubbid 2")){
+            Tampilan_Subbid2();
+        } else if (mPeran.equals("Kasubbid 3")){
+            Tampilan_Subbid3();
         }
     }
 
@@ -81,6 +85,7 @@ public class Teruskan extends AppCompatActivity {
                         Akun akun = new Akun();
                         akun.setNamaAd("Belum Ada Akun");
                         akun.setPeranAd("Belum Ada Akun");
+                        akun.setUserAd("Belum Ada Akun");
                         akunArrayList.add(akun);
                     }
                     AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
@@ -94,28 +99,36 @@ public class Teruskan extends AppCompatActivity {
                             int b = 0;
                             int c = 0;
                             int d = 0;
+                            int e = 0;
                             for (int a = 0; a < AkunAdapter.peranArrayList.size(); a++){
                                 if(AkunAdapter.peranArrayList.get(a).getSelected()) {
-                                    myRef = database.getReference("Surat").child(Kunci);
-                                    if (AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 1")){
-                                        myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
-                                        b=b+1;
-                                    } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 2")){
-                                        myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").child(Integer.toString(c)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
-                                        c=c+1;
-                                    } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 3")){
-                                        myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").child(Integer.toString(d)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                        myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
-                                        d=d+1;
+                                    if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
+                                        e = e+1;
+                                    } else{
+                                        myRef = database.getReference("Surat").child(Kunci);
+                                        if (AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 1")){
+                                            myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                            myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
+                                            b=b+1;
+                                        } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 2")){
+                                            myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").child(Integer.toString(c)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                            myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
+                                            c=c+1;
+                                        } else if(AkunAdapter.peranArrayList.get(a).getPeranAd().equals("Kasubbid 3")){
+                                            myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").child(Integer.toString(d)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                            myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
+                                            d=d+1;
+                                        }
+                                        myRef.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Diteruskan");
+                                        myRef.child("Sifat").setValue(Sifat);
                                     }
-                                    myRef.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Diteruskan");
-                                    myRef.child("Sifat").setValue(Sifat);
                                 }
                             }
-                            if (b==0){
+                            if (b==0 && c==0 && d==0 && e==0){
                                 Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Yang Dipilih", Toast.LENGTH_SHORT);
+                                toa.show();
+                            }  else if (e!=0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Dalam Database", Toast.LENGTH_SHORT);
                                 toa.show();
                             } else{
                                 Toast toa = Toast.makeText(getApplicationContext(), "Berhasil Diteruskan", Toast.LENGTH_SHORT);
@@ -131,6 +144,7 @@ public class Teruskan extends AppCompatActivity {
                     Akun akun = new Akun();
                     akun.setNamaAd("Belum Ada Akun");
                     akun.setPeranAd("Belum Ada Akun");
+                    akun.setUserAd("Belum Ada Akun");
                     akunArrayList.add(akun);
 
                     AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
@@ -183,6 +197,7 @@ public class Teruskan extends AppCompatActivity {
                         Akun akun = new Akun();
                         akun.setNamaAd("Belum Ada Akun");
                         akun.setPeranAd("Belum Ada Akun");
+                        akun.setUserAd("Belum Ada Akun");
                         akunArrayList.add(akun);
                     }
                     AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
@@ -194,15 +209,23 @@ public class Teruskan extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             int b = 0;
+                            int e = 0;
                             for (int a = 0; a < AkunAdapter.peranArrayList.size(); a++){
                                 if(AkunAdapter.peranArrayList.get(a).getSelected()) {
-                                    myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
-                                    myRef.child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
-                                    b=b+1;
+                                    if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
+                                        e = e+1;
+                                    } else{
+                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
+                                        myRef.child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        b=b+1;
+                                    }
                                 }
                             }
-                            if (b==0){
+                            if (b==0 && e==0){
                                 Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Yang Dipilih", Toast.LENGTH_SHORT);
+                                toa.show();
+                            }  else if (e!=0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Dalam Database", Toast.LENGTH_SHORT);
                                 toa.show();
                             } else{
                                 Toast toa = Toast.makeText(getApplicationContext(), "Berhasil Diteruskan", Toast.LENGTH_SHORT);
@@ -218,6 +241,202 @@ public class Teruskan extends AppCompatActivity {
                     Akun akun = new Akun();
                     akun.setNamaAd("Belum Ada Akun");
                     akun.setPeranAd("Belum Ada Akun");
+                    akun.setUserAd("Belum Ada Akun");
+                    akunArrayList.add(akun);
+
+                    AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
+                    lv = (ListView) findViewById(R.id.akun);
+                    lv.setAdapter(adapter);
+
+                    Button Teruskan = (Button) findViewById(R.id.teruskan);
+                    Teruskan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast toa = Toast.makeText(getApplicationContext(), "Tidak Ada Akun Dalam database", Toast.LENGTH_SHORT);
+                            toa.show();
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void Tampilan_Subbid2(){
+        akunArrayList.clear();
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Users");
+        sPeran = "Subbid 2";
+        mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    akunArrayList.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String peran = (String) map.get("Peran");
+                        if (peran.equals("Staff Subbid 2")){
+                            i = i+1;
+                            String nama = (String) map.get("Nama");
+                            String user = (String) map.get("Username");
+
+                            Akun akun = new Akun();
+                            akun.setNamaAd(nama);
+                            akun.setPeranAd(peran);
+                            akun.setUserAd(user);
+                            akunArrayList.add(akun);
+                        }
+                    }
+                    if (i==0){
+                        Akun akun = new Akun();
+                        akun.setNamaAd("Belum Ada Akun");
+                        akun.setPeranAd("Belum Ada Akun");
+                        akun.setUserAd("Belum Ada Akun");
+                        akunArrayList.add(akun);
+                    }
+                    AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
+                    lv = (ListView) findViewById(R.id.akun);
+                    lv.setAdapter(adapter);
+
+                    Button Teruskan = (Button) findViewById(R.id.teruskan);
+                    Teruskan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int b = 0;
+                            int e = 0;
+                            for (int a = 0; a < AkunAdapter.peranArrayList.size(); a++){
+                                if(AkunAdapter.peranArrayList.get(a).getSelected()) {
+                                    if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
+                                        e = e+1;
+                                    } else{
+                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
+                                        myRef.child("Subbid 2").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        b=b+1;
+                                    }
+                                }
+                            }
+                            if (b==0 && e==0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Yang Dipilih", Toast.LENGTH_SHORT);
+                                toa.show();
+                            } else if (e!=0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Dalam Database", Toast.LENGTH_SHORT);
+                                toa.show();
+                            } else{
+                                Toast toa = Toast.makeText(getApplicationContext(), "Berhasil Diteruskan", Toast.LENGTH_SHORT);
+                                toa.show();
+                                Intent home = new Intent(com.example.user.suratbpkad.Teruskan.this, HomePage.class);
+                                startActivity(home);
+                            }
+                        }
+                    });
+
+                } else {
+                    akunArrayList.clear();
+                    Akun akun = new Akun();
+                    akun.setNamaAd("Belum Ada Akun");
+                    akun.setPeranAd("Belum Ada Akun");
+                    akun.setUserAd("Belum Ada Akun");
+                    akunArrayList.add(akun);
+
+                    AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
+                    lv = (ListView) findViewById(R.id.akun);
+                    lv.setAdapter(adapter);
+
+                    Button Teruskan = (Button) findViewById(R.id.teruskan);
+                    Teruskan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast toa = Toast.makeText(getApplicationContext(), "Tidak Ada Akun Dalam database", Toast.LENGTH_SHORT);
+                            toa.show();
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void Tampilan_Subbid3(){
+        akunArrayList.clear();
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Users");
+        sPeran = "Subbid 3";
+        mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    akunArrayList.clear();
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String peran = (String) map.get("Peran");
+                        if (peran.equals("Staff Subbid 3")){
+                            i = i+1;
+                            String nama = (String) map.get("Nama");
+                            String user = (String) map.get("Username");
+
+                            Akun akun = new Akun();
+                            akun.setNamaAd(nama);
+                            akun.setPeranAd(peran);
+                            akun.setUserAd(user);
+                            akunArrayList.add(akun);
+                        }
+                    }
+                    if (i==0){
+                        Akun akun = new Akun();
+                        akun.setNamaAd("Belum Ada Akun");
+                        akun.setPeranAd("Belum Ada Akun");
+                        akun.setUserAd("Belum Ada Akun");
+                        akunArrayList.add(akun);
+                    }
+                    AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);
+                    lv = (ListView) findViewById(R.id.akun);
+                    lv.setAdapter(adapter);
+
+                    Button Teruskan = (Button) findViewById(R.id.teruskan);
+                    Teruskan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int b = 0;
+                            int e = 0;
+                            for (int a = 0; a < AkunAdapter.peranArrayList.size(); a++){
+                                if(AkunAdapter.peranArrayList.get(a).getSelected()) {
+                                    if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
+
+                                        e = e+1;
+                                    } else{
+                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
+                                        myRef.child("Subbid 3").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        b=b+1;
+                                    }
+                                }
+                            }
+                            if (b==0 && e==0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Yang Dipilih", Toast.LENGTH_SHORT);
+                                toa.show();
+                            } else if (e!=0){
+                                Toast toa = Toast.makeText(getApplicationContext(), "Belum Ada Akun Dalam Database", Toast.LENGTH_SHORT);
+                                toa.show();
+                            } else{
+                                Toast toa = Toast.makeText(getApplicationContext(), "Berhasil Diteruskan", Toast.LENGTH_SHORT);
+                                toa.show();
+                                Intent home = new Intent(com.example.user.suratbpkad.Teruskan.this, HomePage.class);
+                                startActivity(home);
+                            }
+                        }
+                    });
+
+                } else {
+                    akunArrayList.clear();
+                    Akun akun = new Akun();
+                    akun.setNamaAd("Belum Ada Akun");
+                    akun.setPeranAd("Belum Ada Akun");
+                    akun.setUserAd("Belum Ada Akun");
                     akunArrayList.add(akun);
 
                     AkunAdapter adapter = new AkunAdapter(Teruskan.this, akunArrayList);

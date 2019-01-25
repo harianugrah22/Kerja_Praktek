@@ -19,7 +19,7 @@
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/nama"
-                android:textSize="25dp"
+                android:textSize="22dp"
                 android:textStyle="bold"
                 android:text="Nama"/>
 

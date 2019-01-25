@@ -30,6 +30,10 @@ import java.util.Map;
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseDatabase mdata;
     DatabaseReference mdb;
+    String perihal_dikembalikan;
+    String nomor_surat_dikembalikan;
+    String pengirim_dikembalikan;
+    String tanggal_terima_dikembalikan;
     String perihal;
     String nomor_surat;
     String pengirim;
@@ -70,6 +74,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     int d=0;
     int e=0;
     int f=0;
+    int g=0;
 
     protected void onStart(){
         super.onStart();
@@ -133,6 +138,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                                 String key2 = ab.getKey();
                                 mnama = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Pelaksana").child(key2).getValue();
                                 if (mnama.equals(mUser)){
+                                    if (status.equals("Dikembalikan")){
+                                        g=g+1;
+                                        perihal_dikembalikan = (String) map.get("Perihal");
+                                        nomor_surat_dikembalikan = (String) map.get("Nomor Surat");
+                                        pengirim_dikembalikan = (String) map.get("Pengirim");
+                                        tanggal_terima_dikembalikan = (String) map.get("Tanggal Terima");
+                                    }
                                     if (status.equals("Baru Diupload")){
                                         a=a+1;
                                         perihal = (String) map.get("Perihal");
@@ -199,7 +211,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                             nomor_suratTxt.setText(nomor_surat);
                             pengirimTxt.setText(pengirim);
                             tanggal_terimaTxt.setText(tanggal_terima);
-                        } else {
+                        } else if (g!=0) {
+                            perihalTxt.setText(perihal_dikembalikan);
+                            nomor_suratTxt.setText(nomor_surat_dikembalikan);
+                            pengirimTxt.setText(pengirim_dikembalikan);
+                            tanggal_terimaTxt.setText(tanggal_terima_dikembalikan);
+                        } else{
                             perihalTxt.setText("Belum Ada Surat");
                             nomor_suratTxt.setText("Belum Ada Surat");
                             pengirimTxt.setText("Belum Ada Surat");
@@ -434,7 +451,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             i.putExtra("Konteks", "Verifikasi");
             startActivity(i);
         } else if (id == R.id.ringkasan_surat_kelompok){
-
+            Intent i = new Intent(HomePage.this, RingkasanAct.class);
+            startActivity(i);
         } else if (id == R.id.logout){
             users.edit().clear().commit();
             pass.edit().clear().commit();

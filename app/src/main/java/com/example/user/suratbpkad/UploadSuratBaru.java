@@ -165,9 +165,9 @@ public class UploadSuratBaru extends AppCompatActivity {
                                    myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                    myRef.child("Sifat").setValue("Belum Ada");
                                    myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
-                                   myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
-                                   myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
-                                   myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Belum Ada");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Belum Ada");
+                                   myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Belum Ada");
                                    myRef.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Baru Diupload");
                                    HashMap<String, String> names = new HashMap <String, String>();
                                    names.put("0",kabid);
@@ -228,9 +228,9 @@ public class UploadSuratBaru extends AppCompatActivity {
                                myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                myRef.child("Sifat").setValue("Belum Ada");
                                myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
-                               myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Baru Diupload");
-                               myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Baru Diupload");
-                               myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Baru Diupload");
+                               myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Belum Ada");
+                               myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Belum Ada");
+                               myRef.child("Yang Ditugaskan").child("Subbid 3").child("Status").setValue("Belum Ada");
                                myRef.child("Yang Ditugaskan").child("Uploader").child("Status").setValue("Baru Diupload");
                                HashMap<String, String> names = new HashMap <String, String>();
                                names.put("0",kabid);
