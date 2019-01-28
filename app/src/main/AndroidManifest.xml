@@ -52,7 +52,9 @@
             android:label="Verifikasi Surat" />
         <activity android:name=".Kembalikan" />
         <activity android:name=".Teruskan" />
-        <activity android:name=".RingkasanAct"></activity>
+        <activity android:name=".RingkasanAct" />
+        <activity android:name=".KetRingkasanAct" />
+        <activity android:name=".Alihkan"></activity>
     </application>
 
 </manifest>

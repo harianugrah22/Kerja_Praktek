@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ public class RingkasanAct extends AppCompatActivity {
     }
 
     public void Tampilan_Ringkasan(){
+        final String Nama[] = new String[9999];
         ringkasans.clear();
         mData = FirebaseDatabase.getInstance();
         mRef = mData.getReference("Surat");
@@ -124,6 +127,7 @@ public class RingkasanAct extends AppCompatActivity {
                     }
                     Ringkasan ringkasan = new Ringkasan();
                     nomor=nomor+1;
+                    Nama[0]="Kabid";
                     ringkasan.setNama_ring("Kabid");
                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
                     ringkasan.setBaru_Diupload(Integer.toString(baru1));
@@ -135,6 +139,7 @@ public class RingkasanAct extends AppCompatActivity {
 
                     Ringkasan ringkasan1 = new Ringkasan();
                     nomor=nomor+1;
+                    Nama[1]="Subbid 1";
                     ringkasan1.setNama_ring("Subbid 1");
                     ringkasan1.setPenomoran_ring(Integer.toString(nomor));
                     ringkasan1.setBaru_Diupload(Integer.toString(baru2));
@@ -146,6 +151,7 @@ public class RingkasanAct extends AppCompatActivity {
 
                     Ringkasan ringkasan2 = new Ringkasan();
                     nomor=nomor+1;
+                    Nama[2]="Subbid 2";
                     ringkasan2.setNama_ring("Subbid 2");
                     ringkasan2.setPenomoran_ring(Integer.toString(nomor));
                     ringkasan2.setBaru_Diupload(Integer.toString(baru3));
@@ -157,6 +163,7 @@ public class RingkasanAct extends AppCompatActivity {
 
                     Ringkasan ringkasan3 = new Ringkasan();
                     nomor=nomor+1;
+                    Nama[3]="Subbid 3";
                     ringkasan3.setNama_ring("Subbid 3");
                     ringkasan3.setPenomoran_ring(Integer.toString(nomor));
                     ringkasan3.setBaru_Diupload(Integer.toString(baru4));
@@ -169,9 +176,18 @@ public class RingkasanAct extends AppCompatActivity {
                     ListView listView1 = (ListView) findViewById(R.id.view_ringkasan);
                     RingkasanAdapter adapter = new RingkasanAdapter(RingkasanAct.this, ringkasans);
                     listView1.setAdapter(adapter);
+
+                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            Intent i = new Intent(RingkasanAct.this, KetRingkasanAct.class);
+                            i.putExtra("Nama",Nama[position]);
+                            i.putExtra("Keterangan","Ringkasan");
+                            startActivity(i);
+                        }
+                    });
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -180,6 +196,7 @@ public class RingkasanAct extends AppCompatActivity {
     }
 
     public void Tampilan_Subbid1(){
+        final String Nama[] = new String[9999];
         ringkasans.clear();
         mData = FirebaseDatabase.getInstance();
         mRef = mData.getReference("Surat");
@@ -229,6 +246,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -268,6 +286,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -309,8 +328,19 @@ public class RingkasanAct extends AppCompatActivity {
                             ListView listView1 = (ListView) findViewById(R.id.view_ringkasan);
                             RingkasanAdapter adapter = new RingkasanAdapter(RingkasanAct.this, ringkasans);
                             listView1.setAdapter(adapter);
-                        } else{
 
+                            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                    if (Nama[position]!=null){
+                                        Intent i = new Intent(RingkasanAct.this, KetRingkasanAct.class);
+                                        i.putExtra("Nama",Nama[position]);
+                                        i.putExtra("Keterangan","Ringkasan");
+                                        startActivity(i);
+                                    } else{
+                                    }
+                                }
+                            });
                         }
                     }
 
@@ -329,6 +359,7 @@ public class RingkasanAct extends AppCompatActivity {
     }
 
     public void Tampilan_Subbid2(){
+        final String Nama[] = new String[9999];
         ringkasans.clear();
         mData = FirebaseDatabase.getInstance();
         mRef = mData.getReference("Surat");
@@ -378,6 +409,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -417,6 +449,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -458,8 +491,19 @@ public class RingkasanAct extends AppCompatActivity {
                             ListView listView1 = (ListView) findViewById(R.id.view_ringkasan);
                             RingkasanAdapter adapter = new RingkasanAdapter(RingkasanAct.this, ringkasans);
                             listView1.setAdapter(adapter);
-                        } else{
 
+                            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                    if (Nama[position]!=null){
+                                        Intent i = new Intent(RingkasanAct.this, KetRingkasanAct.class);
+                                        i.putExtra("Nama",Nama[position]);
+                                        i.putExtra("Keterangan","Ringkasan");
+                                        startActivity(i);
+                                    } else{
+                                    }
+                                }
+                            });
                         }
                     }
 
@@ -478,6 +522,7 @@ public class RingkasanAct extends AppCompatActivity {
     }
 
     public void Tampilan_Subbid3(){
+        final String Nama[] = new String[9999];
         ringkasans.clear();
         mData = FirebaseDatabase.getInstance();
         mRef = mData.getReference("Surat");
@@ -527,6 +572,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -566,6 +612,7 @@ public class RingkasanAct extends AppCompatActivity {
                                         }
                                     }
                                     Ringkasan ringkasan = new Ringkasan();
+                                    Nama[nomor]=user;
                                     nomor=nomor+1;
                                     ringkasan.setNama_ring(nama);
                                     ringkasan.setPenomoran_ring(Integer.toString(nomor));
@@ -607,8 +654,19 @@ public class RingkasanAct extends AppCompatActivity {
                             ListView listView1 = (ListView) findViewById(R.id.view_ringkasan);
                             RingkasanAdapter adapter = new RingkasanAdapter(RingkasanAct.this, ringkasans);
                             listView1.setAdapter(adapter);
-                        } else{
 
+                            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                    if (Nama[position]!=null){
+                                        Intent i = new Intent(RingkasanAct.this, KetRingkasanAct.class);
+                                        i.putExtra("Nama",Nama[position]);
+                                        i.putExtra("Keterangan","Ringkasan");
+                                        startActivity(i);
+                                    } else{
+                                    }
+                                }
+                            });
                         }
                     }
 

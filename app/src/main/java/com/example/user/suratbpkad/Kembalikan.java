@@ -41,6 +41,8 @@ public class Kembalikan extends AppCompatActivity {
 
         if (mPeran.equals("Kabid")){
             sPeran = "Kabid";
+            View a = findViewById(R.id.alihkan);
+            a.setVisibility(View.GONE);
         } else if (mPeran.equals("Kasubbid 1")){
             sPeran = "Subbid 1";
         } else if (mPeran.equals("Kasubbid 2")) {
@@ -129,9 +131,16 @@ public class Kembalikan extends AppCompatActivity {
         mOpenDialogAlihkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mPeran.equals("Kasubbid 1") || mPeran.equals("Kasubbid 2") || mPeran.equals("Kasubbid 3")){
-                    KembalikanFragment pilihFile = new KembalikanFragment();
-                    pilihFile.show(getFragmentManager(),"Pilih File");
+                Alasan = (EditText) findViewById(R.id.alasan);
+                mAlasan = Alasan.getText().toString();
+                if (mAlasan.length()==0){
+                    Toast tst = Toast.makeText(getApplicationContext(),"Alasan Belum Diisi", Toast.LENGTH_SHORT);
+                    tst.show();
+                } else {
+                    Intent i = new Intent(Kembalikan.this, Alihkan.class);
+                    i.putExtra("Kunci", Kunci);
+                    i.putExtra("Alasan", mAlasan);
+                    startActivity(i);
                 }
             }
         });
