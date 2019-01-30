@@ -1,5 +1,6 @@
 package com.example.user.suratbpkad;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class KetRingkasanAct extends AppCompatActivity {
     String sPeran;
     String Nama;
     String Keterangan;
+    String Query;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class KetRingkasanAct extends AppCompatActivity {
         Intent intent = getIntent();
         Nama = intent.getStringExtra("Nama");
         Keterangan = intent.getStringExtra("Keterangan");
+        Query = intent.getStringExtra("Query");
 
         peran = getSharedPreferences("peran", 0);
         mPeran = peran.getString("peran1","Kosong");
@@ -55,8 +59,9 @@ public class KetRingkasanAct extends AppCompatActivity {
         }
         if (Keterangan.equals("Ringkasan")){
             Tampilan_Ringkasan();
+        } else if (Keterangan.equals("Search")){
+            Tampilan_Search(Query);
         }
-
         Button refresh = (Button) findViewById(R.id.refresh_button);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +70,10 @@ public class KetRingkasanAct extends AppCompatActivity {
                 t.show();
             }
         });
+    }
+
+    public void Tampilan_Search(final String queryText){
+        Toast.makeText(getApplicationContext(),queryText,Toast.LENGTH_SHORT).show();
     }
 
     public void Tampilan_Ringkasan(){

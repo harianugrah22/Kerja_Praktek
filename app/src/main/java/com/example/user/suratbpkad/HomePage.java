@@ -1,12 +1,14 @@
 package com.example.user.suratbpkad;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
@@ -104,6 +107,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         mdata = FirebaseDatabase.getInstance();
         mdb = mdata.getReference("Surat");
@@ -365,6 +370,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                     }
                 });
 
+
+
     }
 
     private void hideItemUpload()
@@ -407,7 +414,25 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_page, menu);
-        return true;
+        MenuItem searchitem = menu.findItem(R.id.menuSearch);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchitem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // lakukan query disini
+                Intent i = new Intent(HomePage.this,KetRingkasanAct.class);
+                i.putExtra("Keterangan", "Search");
+                i.putExtra("Query",query);
+                startActivity(i);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

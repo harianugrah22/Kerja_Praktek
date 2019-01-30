@@ -56,5 +56,4 @@
         <activity android:name=".KetRingkasanAct" />
         <activity android:name=".Alihkan"></activity>
     </application>
-
 </manifest>
