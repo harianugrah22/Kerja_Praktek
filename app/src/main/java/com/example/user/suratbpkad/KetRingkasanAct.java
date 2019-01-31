@@ -50,11 +50,11 @@ public class KetRingkasanAct extends AppCompatActivity {
         mPeran = peran.getString("peran1","Kosong");
         if (mPeran.equals("Kabid")){
             sPeran = "Kabid";
-        } else if (mPeran.equals("Kasubbid 1")){
+        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
             sPeran = "Subbid 1";
-        } else if (mPeran.equals("Kasubbid 2")) {
+        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")) {
             sPeran = "Subbid 2";
-        } else if (mPeran.equals("Kasubbid 3")) {
+        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")) {
             sPeran = "Subbid 3";
         }
         if (Keterangan.equals("Ringkasan")){
@@ -66,14 +66,186 @@ public class KetRingkasanAct extends AppCompatActivity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast t = Toast.makeText(getApplicationContext(),Nama,Toast.LENGTH_SHORT);
-                t.show();
+                if (Keterangan.equals("Ringkasan")){
+                    Tampilan_Ringkasan();
+                } else if (Keterangan.equals("Search")){
+                    Tampilan_Search(Query);
+                }
             }
         });
     }
 
     public void Tampilan_Search(final String queryText){
-        Toast.makeText(getApplicationContext(),queryText,Toast.LENGTH_SHORT).show();
+        surats.clear();
+        mdata = FirebaseDatabase.getInstance();
+        mdb = mdata.getReference("Surat");
+
+        mdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int i =0;
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String key = ds.getKey();
+                        Map<String, Object> map = (Map<String, Object>) ds.getValue();
+                        String status = (String) dataSnapshot.child(key).child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
+                        String sifat = (String) dataSnapshot.child(key).child("Sifat").getValue();
+                        String perihal = (String) map.get("Perihal");
+                        String nomor_surat = (String) map.get("Nomor Surat");
+                        String pengirim = (String) map.get("Pengirim");
+                        String tanggal_surat = (String) map.get("Tanggal Surat");
+                        String tanggal_terima = (String) map.get("Tanggal Terima");
+
+                        if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(nomor_surat.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(pengirim.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(tanggal_surat.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(perihal.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(status.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(sifat.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        } else if (queryText.toLowerCase().toString().replaceAll(" ", "").equals(tanggal_terima.toLowerCase().toString().replaceAll(" ", ""))){
+                            KetRingkasan surat = new KetRingkasan();
+                            kunci[i] = key;
+                            i=i+1;
+                            surat.setPenomoran(Integer.toString(i));
+                            surat.setPerihal_surat(perihal);
+                            surat.setNomor_surat(nomor_surat);
+                            surat.setPengirim_surat(pengirim);
+                            surat.setTanggal_surat(tanggal_surat);
+                            surat.setStatus_surat(status);
+                            surat.setSifat_surat(sifat);
+                            surats.add(surat);
+                        }
+                    }
+                    if (i==0){
+                        KetRingkasan surat = new KetRingkasan();
+                        i=i+1;
+                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPerihal_surat("Tidak Ditemukan");
+                        surat.setNomor_surat("Tidak Ditemukan");
+                        surat.setPengirim_surat("Tidak Ditemukan");
+                        surat.setTanggal_surat("Tidak Ditemukan");
+                        surat.setStatus_surat("Tidak Ditemukan");
+                        surat.setSifat_surat("Tidak Ditemukan");
+                        surats.add(surat);
+                    }
+
+                    KetRingkasanAdapter adapter = new KetRingkasanAdapter(KetRingkasanAct.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_ketringkasan);
+                    listView1.setAdapter(adapter);
+
+                    if (i==0){
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+                    } else {
+                        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Intent i = new Intent(KetRingkasanAct.this, KeteranganSudah.class);
+                                i.putExtra("Kunci",kunci[position]);
+                                startActivity(i);
+                            }
+                        });
+                    }
+                } else{
+                    KetRingkasan surat = new KetRingkasan();
+                    surat.setPenomoran(Integer.toString(1));
+                    surat.setPerihal_surat("Tidak Ditemukan");
+                    surat.setNomor_surat("Tidak Ditemukan");
+                    surat.setPengirim_surat("Tidak Ditemukan");
+                    surat.setTanggal_surat("Tidak Ditemukan");
+                    surat.setStatus_surat("Tidak Ditemukan");
+                    surat.setSifat_surat("Tidak Ditemukan");
+                    surats.add(surat);
+
+                    KetRingkasanAdapter adapter = new KetRingkasanAdapter(KetRingkasanAct.this, surats);
+                    ListView listView1 = (ListView) findViewById(R.id.view_ketringkasan);
+                    listView1.setAdapter(adapter);
+
+                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     public void Tampilan_Ringkasan(){
