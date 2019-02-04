@@ -5,7 +5,7 @@ package com.example.user.suratbpkad;
  */
 
 public class Surat {
-    String key, penomoran, perihal_surat, nomor_surat, pengirim_surat, tanggal_surat, tanggal_terima, status_surat, sifat_surat, yang_ditugaskan, memo_surat;
+    String key, output, penomoran, perihal_surat, nomor_surat, pengirim_surat, tanggal_surat, tanggal_terima, status_surat, sifat_surat, yang_ditugaskan, memo_surat;
 
     public Surat(){
     }
@@ -32,4 +32,6 @@ public class Surat {
     public void setSifat_surat(String sifat_surat) {this.sifat_surat = sifat_surat;}
     public String getMemo_surat(){return memo_surat;}
     public void setMemo_surat(String memo_surat) {this.memo_surat = memo_surat;}
+    public String getOutput(){return output;}
+    public void setOutput(String output) {this.output = output;}
 }

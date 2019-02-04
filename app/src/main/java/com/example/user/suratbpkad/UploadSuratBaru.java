@@ -164,6 +164,7 @@ public class UploadSuratBaru extends AppCompatActivity {
                                    myRef.child("Pengirim").setValue(mPengirim.getText().toString());
                                    myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                    myRef.child("Sifat").setValue("Belum Ada");
+                                   myRef.child("Output").setValue("Belum Ada");
                                    myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
                                    myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Belum Ada");
                                    myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Belum Ada");
@@ -227,6 +228,7 @@ public class UploadSuratBaru extends AppCompatActivity {
                                myRef.child("Pengirim").setValue(mPengirim.getText().toString());
                                myRef.child("Perihal").setValue(mPerihal.getText().toString());
                                myRef.child("Sifat").setValue("Belum Ada");
+                               myRef.child("Output").setValue("Belum Ada");
                                myRef.child("Yang Ditugaskan").child("Kabid").child("Status").setValue("Baru Diupload");
                                myRef.child("Yang Ditugaskan").child("Subbid 1").child("Status").setValue("Belum Ada");
                                myRef.child("Yang Ditugaskan").child("Subbid 2").child("Status").setValue("Belum Ada");

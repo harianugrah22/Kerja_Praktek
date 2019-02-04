@@ -28,6 +28,7 @@ public class Teruskan extends AppCompatActivity {
     private ArrayList<Akun> akunArrayList = new ArrayList<>();
     String Kunci;
     String Sifat;
+    String Output;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
 
@@ -42,6 +43,7 @@ public class Teruskan extends AppCompatActivity {
         Intent intent = getIntent();
         Kunci = intent.getStringExtra("Kunci");
         Sifat = intent.getStringExtra("Sifat");
+        Output = intent.getStringExtra("Output");
 
         if (mPeran.equals("Kabid")){
             Tampilan_Kabid();
@@ -215,8 +217,9 @@ public class Teruskan extends AppCompatActivity {
                                     if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
                                         e = e+1;
                                     } else{
-                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
-                                        myRef.child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef = database.getReference("Surat").child(Kunci);
+                                        myRef.child("Output").setValue(Output);
+                                        myRef.child("Yang Ditugaskan").child("Subbid 1").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
                                         b=b+1;
                                     }
                                 }
@@ -312,8 +315,9 @@ public class Teruskan extends AppCompatActivity {
                                     if (AkunAdapter.peranArrayList.get(a).getUserAd().equals("Belum Ada Akun")){
                                         e = e+1;
                                     } else{
-                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
-                                        myRef.child("Subbid 2").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef = database.getReference("Surat").child(Kunci);
+                                        myRef.child("Output").setValue(Output);
+                                        myRef.child("Yang Ditugaskan").child("Subbid 2").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
                                         b=b+1;
                                     }
                                 }
@@ -410,8 +414,9 @@ public class Teruskan extends AppCompatActivity {
 
                                         e = e+1;
                                     } else{
-                                        myRef = database.getReference("Surat").child(Kunci).child("Yang Ditugaskan");
-                                        myRef.child("Subbid 3").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
+                                        myRef = database.getReference("Surat").child(Kunci);
+                                        myRef.child("Output").setValue(Output);
+                                        myRef.child("Yang Ditugaskan").child("Subbid 3").child("Pelaksana").child(Integer.toString(b)).setValue(AkunAdapter.peranArrayList.get(a).getUserAd());
                                         b=b+1;
                                     }
                                 }

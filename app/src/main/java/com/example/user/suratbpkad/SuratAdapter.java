@@ -53,6 +53,7 @@ public class SuratAdapter extends BaseAdapter {
         TextView status_suratTxt = (TextView) convertView.findViewById(R.id.status_surat);
         TextView sifat_suratTxt = (TextView) convertView.findViewById(R.id.sifat_surat);
         TextView yang_ditugaskanTxt = (TextView) convertView.findViewById(R.id.yang_ditugaskan);
+        TextView outputTxt = (TextView) convertView.findViewById(R.id.otp);
 
         final Surat s = (Surat) this.getItem(position);
 
@@ -65,6 +66,7 @@ public class SuratAdapter extends BaseAdapter {
         status_suratTxt.setText(s.getStatus_surat());
         sifat_suratTxt.setText(s.getSifat_surat());
         yang_ditugaskanTxt.setText(s.getYang_ditugaskan());
+        outputTxt.setText(s.getOutput());
 
         return convertView;
     }

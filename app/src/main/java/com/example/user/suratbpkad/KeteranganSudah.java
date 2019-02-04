@@ -64,7 +64,11 @@ public class KeteranganSudah extends AppCompatActivity {
                 String perihal_surat = (String) dataSnapshot.child("Perihal").getValue();
                 String status = (String) dataSnapshot.child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                 String memo = (String) dataSnapshot.child("Memo").getValue();
+                String output = (String) dataSnapshot.child("Output").getValue();
+                String sifat = (String) dataSnapshot.child("Sifat").getValue();
 
+                TextView sifatTxt = (TextView) findViewById(R.id.sft);
+                TextView outputTxt = (TextView) findViewById(R.id.opt);
                 TextView no_suratTxt = (TextView) findViewById(R.id.nomor_surat);
                 TextView tanggal_suratTxt = (TextView) findViewById(R.id.tanggal_surat);
                 TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_terima);
@@ -75,6 +79,8 @@ public class KeteranganSudah extends AppCompatActivity {
                 TextView memoTxt = (TextView) findViewById(R.id.memo);
 
                 no_suratTxt.setText(no_surat);
+                sifatTxt.setText(sifat);
+                outputTxt.setText(output);
                 tanggal_suratTxt.setText(tanggal_surat);
                 tanggal_terimaTxt.setText(tanggal_terima);
                 pengirim_suratTxt.setText(pengirim_surat);

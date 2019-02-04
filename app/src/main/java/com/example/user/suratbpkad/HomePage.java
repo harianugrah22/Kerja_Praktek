@@ -67,6 +67,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     SharedPreferences pass;
     SharedPreferences peran;
     String mPeran;
+    String mPass;
     String sPeran;
     SharedPreferences nama;
     String mNama;
@@ -119,17 +120,28 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         mNama = nama.getString("nama1","Kosong");
         peran = getSharedPreferences("peran", 0);
         mPeran = peran.getString("peran1","Kosong");
+        pass = getSharedPreferences("password", 0);
+        mPass = pass.getString("pass1","Kosong");
 
-        if (mPeran.equals("Kabid")){
-            sPeran = "Kabid";
-        } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Staff Subbid 1")){
-            sPeran = "Subbid 1";
-        } else if (mPeran.equals("Kasubbid 2") || mPeran.equals("Staff Subbid 2")){
-            sPeran = "Subbid 2";
-        } else if (mPeran.equals("Kasubbid 3") || mPeran.equals("Staff Subbid 3")){
-            sPeran = "Subbid 3";
-        } else{
-            sPeran = "Uploader";
+        switch (mPeran) {
+            case "Kabid":
+                sPeran = "Kabid";
+                break;
+            case "Kasubbid 1":
+            case "Staff Subbid 1":
+                sPeran = "Subbid 1";
+                break;
+            case "Kasubbid 2":
+            case "Staff Subbid 2":
+                sPeran = "Subbid 2";
+                break;
+            case "Kasubbid 3":
+            case "Staff Subbid 3":
+                sPeran = "Subbid 3";
+                break;
+            default:
+                sPeran = "Uploader";
+                break;
         }
         mdb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -325,6 +337,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             hideItemUpload();
             if (mPeran.equals("Staff Subbid 1") || mPeran.equals("Staff Subbid 2") || mPeran.equals("Staff Subbid 3")){
                 hideItem();
+            } else if (mPeran.equals("Kabid")){
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                Menu nav_Menu = navigationView.getMenu();
+                nav_Menu.findItem(R.id.verifikasi_surat).setVisible(false);
             }
         }
 
@@ -479,10 +495,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             Intent i = new Intent(HomePage.this, RingkasanAct.class);
             startActivity(i);
         } else if (id == R.id.logout){
-            users.edit().clear().commit();
-            pass.edit().clear().commit();
-            peran.edit().clear().commit();
-            nama.edit().clear().commit();
+            users.edit().clear().apply();
+            pass.edit().clear().apply();
+            peran.edit().clear().apply();
+            nama.edit().clear().apply();
             Intent i = new Intent(HomePage.this,Login.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);

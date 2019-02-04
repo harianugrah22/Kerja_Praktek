@@ -137,13 +137,13 @@ public class Login extends AppCompatActivity {
                                                 if (username.equals(mUsernameView.getText().toString())){
                                                     if (password.equals(mPasswordView.getText().toString())){
                                                         mPerEdit = peran.edit();
-                                                        mPerEdit.putString("peran1", mperan).commit();
+                                                        mPerEdit.putString("peran1", mperan).apply();
                                                         mNEdit = nama.edit();
-                                                        mNEdit.putString("nama1", mnama).commit();
+                                                        mNEdit.putString("nama1", mnama).apply();
                                                         mUEdit = users.edit();
-                                                        mUEdit.putString("user1", mUsernameView.getText().toString()).commit();
+                                                        mUEdit.putString("user1", mUsernameView.getText().toString()).apply();
                                                         mPEdit = pass.edit();
-                                                        mPEdit.putString("pass1", mPasswordView.getText().toString()).commit();
+                                                        mPEdit.putString("pass1", mPasswordView.getText().toString()).apply();
                                                         Context context = getApplicationContext();
                                                         CharSequence text = "Berhasil Masuk";
                                                         int duration = Toast.LENGTH_SHORT;

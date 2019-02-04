@@ -29,7 +29,11 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
     String mPeran;
     String sPeran;
     String vPeran;
+    ArrayAdapter aa;
     String[] sifat={"- Pilih Sifat -","Sangat Penting","Penting","Normal"};
+    String[] output={"- Pilih Output -","Arsip","Tanggapan", "Undangan","Penggunaan [Telaahan]", "Penggunaan [Persetase]", "Penggunaan [Kepgub]",
+            "Pembongkaran [Telaahan]", "Pembongkaran [Bantek]", "Pembongkaran [Visitasi]", "Pembongkaran [Penilaian]", "Pembongkaran [Izin]",
+            "Pembongkaran [Persetujuan]", "Pembongkaran [Kepgub]", "Lainnya"};
     Spinner spin;
 
     @Override
@@ -48,7 +52,11 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
 
         spin = (Spinner) findViewById(R.id.sif_surat);
         spin.setOnItemSelectedListener(this);
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,sifat);
+        if (mPeran.equals("Kabid")){
+            aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,sifat);
+        } else {
+            aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,output);
+        }
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
 
@@ -82,13 +90,19 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
                 String tanggal_terima = (String) dataSnapshot.child("Tanggal Terima").getValue();
                 String pengirim_surat = (String) dataSnapshot.child("Pengirim").getValue();
                 String perihal_surat = (String) dataSnapshot.child("Perihal").getValue();
+                String output = (String) dataSnapshot.child("Output").getValue();
+                String sifat = (String) dataSnapshot.child("Sifat").getValue();
 
+                TextView sifatTxt = (TextView) findViewById(R.id.sft);
+                TextView outputTxt = (TextView) findViewById(R.id.opt);
                 TextView no_suratTxt = (TextView) findViewById(R.id.nomor_surat);
                 TextView tanggal_suratTxt = (TextView) findViewById(R.id.tanggal_surat);
                 TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_terima);
                 TextView pengirim_suratTxt = (TextView) findViewById(R.id.pengirim_surat);
                 TextView perihal_suratTxt = (TextView) findViewById(R.id.perihal);
 
+                sifatTxt.setText(sifat);
+                outputTxt.setText(output);
                 no_suratTxt.setText(no_surat);
                 tanggal_suratTxt.setText(tanggal_surat);
                 tanggal_terimaTxt.setText(tanggal_terima);
@@ -103,6 +117,10 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
         });
 
         if (vPeran.equals("Kabid")){
+            View a = findViewById(R.id.output);
+            a.setVisibility(View.GONE);
+            View b = findViewById(R.id.sifat2);
+            b.setVisibility(View.GONE);
             Button Teruskan = (Button) findViewById(R.id.teruskan);
             Teruskan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -132,6 +150,7 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
                                 Toast toast = Toast.makeText(getApplicationContext(),"Pilih Sifat Surat Terlebih Dulu", Toast.LENGTH_SHORT);
                                 toast.show();
                             } else{
+                                mdb.child("Output").setValue("Diproses");
                                 mdb.child("Sifat").setValue(spin.getSelectedItem().toString());
                                 mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Sedang Diproses");
                                 Toast toast = Toast.makeText(getApplicationContext(),"Status Surat Berhasil Diubah", Toast.LENGTH_SHORT);
@@ -158,17 +177,26 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
                 }
             });
         } else if (vPeran.equals("Kasubbid")){
-            View a = findViewById(R.id.sifat);
+            View a = findViewById(R.id.output);
             a.setVisibility(View.GONE);
+            TextView otp = (TextView) findViewById(R.id.otp);
+            otp.setText("Pilih Output");
             Button Teruskan = (Button) findViewById(R.id.teruskan);
             Teruskan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"Loading ...", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Intent i = new Intent(KeteranganBaru.this, Teruskan.class);
-                    i.putExtra("Kunci",Kunci);
-                    startActivity(i);
+                    if (spin.getSelectedItem().toString().equals("- Pilih Sifat -")){
+                        Toast toast = Toast.makeText(getApplicationContext(),"Pilih Sifat Surat Terlebih Dulu", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else{
+                        String opt = spin.getSelectedItem().toString();
+                        Toast toast = Toast.makeText(getApplicationContext(),"Loading ...", Toast.LENGTH_SHORT);
+                        toast.show();
+                        Intent i = new Intent(KeteranganBaru.this, Teruskan.class);
+                        i.putExtra("Kunci",Kunci);
+                        i.putExtra("Output",opt);
+                        startActivity(i);
+                    }
                 }
             });
             Button Terima = (Button) findViewById(R.id.terima);
@@ -178,6 +206,7 @@ public class KeteranganBaru extends AppCompatActivity implements AdapterView.OnI
                     mdb.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            mdb.child("Output").setValue(spin.getSelectedItem().toString());
                             mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Sedang Diproses");
                             Toast toast = Toast.makeText(getApplicationContext(),"Status Surat Berhasil Diubah", Toast.LENGTH_SHORT);
                             toast.show();

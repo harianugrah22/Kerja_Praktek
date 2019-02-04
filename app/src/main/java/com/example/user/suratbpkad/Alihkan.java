@@ -43,12 +43,16 @@ public class Alihkan extends AppCompatActivity {
         Kunci = intent.getStringExtra("Kunci");
         Alasan = intent.getStringExtra("Alasan");
 
-        if (mPeran.equals("Kasubbid 1")){
-            sPeran = "Subbid 1";
-        } else if (mPeran.equals("Kasubbid 2")) {
-            sPeran = "Subbid 2";
-        } else if (mPeran.equals("Kasubbid 3")) {
-            sPeran = "Subbid 3";
+        switch (mPeran) {
+            case "Kasubbid 1":
+                sPeran = "Subbid 1";
+                break;
+            case "Kasubbid 2":
+                sPeran = "Subbid 2";
+                break;
+            case "Kasubbid 3":
+                sPeran = "Subbid 3";
+                break;
         }
 
         akunArrayList.clear();

@@ -120,6 +120,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i] = key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -130,6 +131,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -160,6 +162,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                         }
                                         kunci[i] = key;
                                         String perihal = (String) map.get("Perihal");
+                                        String output = (String) map.get("Output");
                                         String nomor_surat = (String) map.get("Nomor Surat");
                                         String pengirim = (String) map.get("Pengirim");
                                         String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -170,6 +173,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                         surat.setKey(key);
                                         surat.setPenomoran(Integer.toString(i));
                                         surat.setPerihal_surat(perihal);
+                                        surat.setOutput(output);
                                         surat.setNomor_surat(nomor_surat);
                                         surat.setPengirim_surat(pengirim);
                                         surat.setTanggal_surat(tanggal_surat);
@@ -201,6 +205,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     kunci[i] = key;
                                     String perihal = (String) map.get("Perihal");
                                     String nomor_surat = (String) map.get("Nomor Surat");
+                                    String output = (String) map.get("Output");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
                                     String tanggal_terima = (String) map.get("Tanggal Terima");
@@ -210,6 +215,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -240,6 +246,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i] = key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -250,6 +257,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -280,6 +288,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i] = key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -290,6 +299,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -306,6 +316,7 @@ public class DisposisiKabid extends AppCompatActivity {
                         Surat surat = new Surat();
                         surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
+                        surat.setOutput("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
                         surat.setTanggal_surat("Belum Ada Surat");
@@ -343,6 +354,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
+                    surat.setOutput("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
                     surat.setTanggal_surat("Belum Ada Surat");
                     surat.setTanggal_terima("Belum Ada Surat");
@@ -418,6 +430,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -428,6 +441,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -458,6 +472,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -468,6 +483,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -498,6 +514,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -508,6 +525,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -538,6 +556,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -548,6 +567,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -578,6 +598,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -588,6 +609,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -618,6 +640,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -628,6 +651,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -645,6 +669,7 @@ public class DisposisiKabid extends AppCompatActivity {
                         surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
+                        surat.setOutput("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
                         surat.setTanggal_surat("Belum Ada Surat");
                         surat.setTanggal_terima("Belum Ada Surat");
@@ -681,6 +706,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
+                    surat.setOutput("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
                     surat.setTanggal_surat("Belum Ada Surat");
                     surat.setTanggal_terima("Belum Ada Surat");
@@ -756,6 +782,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -766,6 +793,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -796,6 +824,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -806,6 +835,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -836,6 +866,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -846,6 +877,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -876,6 +908,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -886,6 +919,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -916,6 +950,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -926,6 +961,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -956,6 +992,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -966,6 +1003,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -996,6 +1034,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1006,6 +1045,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -1036,6 +1076,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1046,6 +1087,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -1076,6 +1118,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     }
                                     kunci[i]=key;
                                     String perihal = (String) map.get("Perihal");
+                                    String output = (String) map.get("Output");
                                     String nomor_surat = (String) map.get("Nomor Surat");
                                     String pengirim = (String) map.get("Pengirim");
                                     String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1086,6 +1129,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                     surat.setKey(key);
                                     surat.setPenomoran(Integer.toString(i));
                                     surat.setPerihal_surat(perihal);
+                                    surat.setOutput(output);
                                     surat.setNomor_surat(nomor_surat);
                                     surat.setPengirim_surat(pengirim);
                                     surat.setTanggal_surat(tanggal_surat);
@@ -1103,6 +1147,7 @@ public class DisposisiKabid extends AppCompatActivity {
                         surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
+                        surat.setOutput("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
                         surat.setTanggal_surat("Belum Ada Surat");
                         surat.setTanggal_terima("Belum Ada Surat");
@@ -1139,6 +1184,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
+                    surat.setOutput("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
                     surat.setTanggal_surat("Belum Ada Surat");
                     surat.setTanggal_terima("Belum Ada Surat");
@@ -1208,6 +1254,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 }
                                 kunci[i]=key;
                                 String perihal = (String) map.get("Perihal");
+                                String output = (String) map.get("Output");
                                 String nomor_surat = (String) map.get("Nomor Surat");
                                 String pengirim = (String) map.get("Pengirim");
                                 String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1218,6 +1265,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 surat.setKey(key);
                                 surat.setPenomoran(Integer.toString(i));
                                 surat.setPerihal_surat(perihal);
+                                surat.setOutput(output);
                                 surat.setNomor_surat(nomor_surat);
                                 surat.setPengirim_surat(pengirim);
                                 surat.setTanggal_surat(tanggal_surat);
@@ -1242,6 +1290,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 }
                                 kunci[i]=key;
                                 String perihal = (String) map.get("Perihal");
+                                String output = (String) map.get("Output");
                                 String nomor_surat = (String) map.get("Nomor Surat");
                                 String pengirim = (String) map.get("Pengirim");
                                 String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1252,6 +1301,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 surat.setKey(key);
                                 surat.setPenomoran(Integer.toString(i));
                                 surat.setPerihal_surat(perihal);
+                                surat.setOutput(output);
                                 surat.setNomor_surat(nomor_surat);
                                 surat.setPengirim_surat(pengirim);
                                 surat.setTanggal_surat(tanggal_surat);
@@ -1276,6 +1326,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 }
                                 kunci[i]=key;
                                 String perihal = (String) map.get("Perihal");
+                                String output = (String) map.get("Output");
                                 String nomor_surat = (String) map.get("Nomor Surat");
                                 String pengirim = (String) map.get("Pengirim");
                                 String tanggal_surat = (String) map.get("Tanggal Surat");
@@ -1286,6 +1337,7 @@ public class DisposisiKabid extends AppCompatActivity {
                                 surat.setKey(key);
                                 surat.setPenomoran(Integer.toString(i));
                                 surat.setPerihal_surat(perihal);
+                                surat.setOutput(output);
                                 surat.setNomor_surat(nomor_surat);
                                 surat.setPengirim_surat(pengirim);
                                 surat.setTanggal_surat(tanggal_surat);
@@ -1302,6 +1354,7 @@ public class DisposisiKabid extends AppCompatActivity {
                         surat.setPenomoran("1");
                         surat.setPerihal_surat("Belum Ada Surat");
                         surat.setNomor_surat("Belum Ada Surat");
+                        surat.setOutput("Belum Ada Surat");
                         surat.setPengirim_surat("Belum Ada Surat");
                         surat.setTanggal_surat("Belum Ada Surat");
                         surat.setTanggal_terima("Belum Ada Surat");
@@ -1338,6 +1391,7 @@ public class DisposisiKabid extends AppCompatActivity {
                     surat.setPenomoran("1");
                     surat.setPerihal_surat("Belum Ada Surat");
                     surat.setNomor_surat("Belum Ada Surat");
+                    surat.setOutput("Belum Ada Surat");
                     surat.setPengirim_surat("Belum Ada Surat");
                     surat.setTanggal_surat("Belum Ada Surat");
                     surat.setTanggal_terima("Belum Ada Surat");

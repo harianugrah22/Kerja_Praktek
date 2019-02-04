@@ -64,7 +64,11 @@ public class KeteranganSedang extends AppCompatActivity {
                 String perihal_surat = (String) dataSnapshot.child("Perihal").getValue();
                 String status = (String) dataSnapshot.child("Yang Ditugaskan").child(sPeran).child("Status").getValue();
                 String memo = (String) dataSnapshot.child("Memo").getValue();
+                String output = (String) dataSnapshot.child("Output").getValue();
+                String sifat = (String) dataSnapshot.child("Sifat").getValue();
 
+                TextView sifatTxt = (TextView) findViewById(R.id.sft);
+                TextView outputTxt = (TextView) findViewById(R.id.opt);
                 TextView no_suratTxt = (TextView) findViewById(R.id.nomor_surat);
                 TextView tanggal_suratTxt = (TextView) findViewById(R.id.tanggal_surat);
                 TextView tanggal_terimaTxt = (TextView) findViewById(R.id.tanggal_terima);
@@ -74,6 +78,8 @@ public class KeteranganSedang extends AppCompatActivity {
                 TextView statusTxt = (TextView) findViewById(R.id.status_surat);
                 TextView memoTxt = (TextView) findViewById(R.id.memo);
 
+                sifatTxt.setText(sifat);
+                outputTxt.setText(output);
                 no_suratTxt.setText(no_surat);
                 tanggal_suratTxt.setText(tanggal_surat);
                 tanggal_terimaTxt.setText(tanggal_terima);
@@ -133,7 +139,14 @@ public class KeteranganSedang extends AppCompatActivity {
         Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Sedang Diverifikasi");
+                if (mPeran.equals("Kabid")){
+                    mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Selesai");
+                    mdb.child("Output").setValue("Selesai");
+                } else if (mPeran.equals("Kasubbid 1") || mPeran.equals("Kasubbid 2") || mPeran.equals("Kasubbid 3")){
+                    mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Selesai");
+                } else{
+                    mdb.child("Yang Ditugaskan").child(sPeran).child("Status").setValue("Sedang Diverifikasi");
+                }
                 Toast toast = Toast.makeText(getApplicationContext(),"Laporan Berhasil Diupload", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(KeteranganSedang.this,HomePage.class);
