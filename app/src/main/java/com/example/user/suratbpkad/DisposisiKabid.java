@@ -36,12 +36,16 @@ public class DisposisiKabid extends AppCompatActivity {
         final String Konteks = intent.getStringExtra("Konteks");
 
         if (Konteks.equals("Baru")){
+            this.setTitle("Disposisi Baru");
             Tampilan_Baru();
         } else if (Konteks.equals("Diproses")){
+            this.setTitle("Surat Diproses");
             Tampilan_Diproses();
         } else if (Konteks.equals("Selesai")){
+            this.setTitle("Surat Selesai");
             Tampilan_Selesai();
         } else if (Konteks.equals("Verifikasi")){
+            this.setTitle("Surat Menunggu Verifikasi");
             Tampilan_Verifikasi();
         } else{
             Toast toast = Toast.makeText(getApplicationContext(), "Gagal Dimuat", Toast.LENGTH_SHORT);

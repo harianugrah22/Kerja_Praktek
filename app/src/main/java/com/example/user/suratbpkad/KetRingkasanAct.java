@@ -184,8 +184,7 @@ public class KetRingkasanAct extends AppCompatActivity {
                     }
                     if (i==0){
                         KetRingkasan surat = new KetRingkasan();
-                        i=i+1;
-                        surat.setPenomoran(Integer.toString(i));
+                        surat.setPenomoran(Integer.toString(1));
                         surat.setPerihal_surat("Tidak Ditemukan");
                         surat.setNomor_surat("Tidak Ditemukan");
                         surat.setPengirim_surat("Tidak Ditemukan");

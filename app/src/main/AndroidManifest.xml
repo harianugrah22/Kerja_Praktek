@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
-            android:label="@string/title_activity_log_in">
+            android:label="Nama Aplikasi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,15 +46,20 @@
             android:label="Surat Sudah Diproses" />
         <activity
             android:name=".DisposisiKabid"
-            android:label="Disposisi Kabid" />
+            android:label="Disposisi Surat" />
         <activity
             android:name=".KeteranganVerifikasi"
             android:label="Verifikasi Surat" />
-        <activity android:name=".Kembalikan" />
-        <activity android:name=".Teruskan" />
-        <activity android:name=".RingkasanAct" />
-        <activity android:name=".KetRingkasanAct" />
-        <activity android:name=".Alihkan"></activity>
+        <activity android:name=".Kembalikan"
+            android:label="Kembalikan"/>
+        <activity android:name=".Teruskan"
+            android:label="Teruskan"/>
+        <activity android:name=".RingkasanAct"
+            android:label="Ringkasan"/>
+        <activity android:name=".KetRingkasanAct"
+            android:label="Keterangan Surat"/>
+        <activity android:name=".Alihkan"
+            android:label="Alihkan"></activity>
         <service
             android:name=".MyFirebaseInstanceIdService">
             <intent-filter>
