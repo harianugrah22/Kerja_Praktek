@@ -28,7 +28,6 @@ public class PilihFile extends DialogFragment {
         AmbilGambar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,
                         CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
